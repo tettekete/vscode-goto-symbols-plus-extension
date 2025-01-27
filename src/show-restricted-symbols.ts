@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 
 import { functionsOrClassesList } from './lib/functions-or-classes-list';
+import { ExQuickPickItem } from './types';
+import { HightLightBox } from './lib/hight-light-box';
 
 export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 {
@@ -32,19 +34,65 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 			context,
 			documentSymbols
 		});
-	const selectedSymbol	= await vscode.window.showQuickPick(
-								quickPickItems,
-								{
-									placeHolder: 'Select a symbol to navigate',
-								}
-							);
 	
-	if( selectedSymbol )
+	
+	const previewSymbol = ( exPickItem:ExQuickPickItem ) =>
+	{	
+		// move to symbol
+		const { symbol } = exPickItem;
+		editor.revealRange(symbol.range, vscode.TextEditorRevealType.Default);
+
+		// create hight light box
+		HightLightBox.showWithRange( symbol.range );
+	};
+	
+	const gotoSymbol = (exPickItem:ExQuickPickItem ) =>
 	{
-		// 選択したシンボルの位置に移動
-		const { symbol } = selectedSymbol;
+		HightLightBox.dispose();
+
+		const { symbol } = exPickItem;
 		const range = symbol.range;
+
 		editor.revealRange(range, vscode.TextEditorRevealType.Default);
 		editor.selection = new vscode.Selection(range.start, range.start);
-	}
+	};
+
+	const quickPick = vscode.window.createQuickPick<ExQuickPickItem>();
+	quickPick.items = quickPickItems;
+	quickPick.placeholder = 'Select a symbol to navigate';
+
+	quickPick.onDidChangeActive((selectedItems) =>
+		{
+			// console.debug('onDidChangeSelection:', selectedItems[0].label );
+			const selection = selectedItems[0];
+			if( selection )
+			{
+				previewSymbol( selection );
+			}
+		}
+	);
+	
+	quickPick.onDidAccept(()=>
+		{
+			HightLightBox.dispose();
+
+			const selected = quickPick.selectedItems[0];
+			if( selected )
+			{
+				gotoSymbol( selected );
+			}
+
+			quickPick.hide();
+		}
+	);
+
+	quickPick.onDidHide(() =>
+		{
+			HightLightBox.dispose();
+			quickPick.dispose();
+		}
+	);
+
+	quickPick.show();
+	
 }
