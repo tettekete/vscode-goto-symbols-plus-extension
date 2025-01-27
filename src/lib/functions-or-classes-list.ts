@@ -5,12 +5,7 @@ import {
 	withIndent
 } from './utils';
 
-interface ExQuickPickItem extends vscode.QuickPickItem
-{	
-	symbol: vscode.DocumentSymbol;
-	depth?: number;
-
-}
+import { ExQuickPickItem } from '../types';
 
 interface FlattenSymbolRec
 {
@@ -87,40 +82,4 @@ export async function functionsOrClassesList(
 		);
 
 		return SymbolsToQuickPickItemList({ flattenSymbols });
-
-		// // 必要なシンボル（関数、クラス、メソッド）のみをフィルタリング
-		// const filteredSymbols = documentSymbols.filter( passFilter );
-
-		// return filteredSymbols.map((symbol) =>
-		// {
-		// 	let iconFile = 'unknown-icon.svg';
-		// 	switch( symbol.kind )
-		// 	{
-		// 		case vscode.SymbolKind.Function:
-		// 			iconFile = 'f-icon.svg';
-		// 			break;
-				
-		// 		case vscode.SymbolKind.Class:
-		// 			iconFile = 'c-icon.svg';
-		// 			break;
-				
-		// 		case vscode.SymbolKind.Method:
-		// 			iconFile = 'm-icon.svg';
-		// 			break;
-		// 	}
-
-		// 	const iconPath = vscode.Uri.joinPath(
-		// 										context.extensionUri,
-		// 										"media",
-		// 										iconFile
-		// 									);
-
-		// 	return {
-		// 		label: symbol.name,
-		// 		description: vscode.SymbolKind[symbol.kind],
-		// 		// detail: `Line: ${symbol.range.start.line + 1}`,
-		// 		symbol: symbol, // 元のシンボルを保持
-		// 		iconPath
-		// 	};
-		// });
 }
