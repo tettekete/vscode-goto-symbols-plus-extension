@@ -29,12 +29,17 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		return;
 	}
 
-	const quickPickItems = await functionsOrClassesList(
+	const quickPickItems = functionsOrClassesList(
 		{
 			context,
 			documentSymbols
 		});
 	
+	if( quickPickItems instanceof Error )
+	{
+		vscode.window.showInformationMessage( quickPickItems.message );
+		return;
+	}
 	
 	const previewSymbol = ( exPickItem:ExQuickPickItem ) =>
 	{	
