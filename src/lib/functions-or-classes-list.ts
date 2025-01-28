@@ -5,13 +5,11 @@ import {
 	withIndent
 } from './utils';
 
-import { ExQuickPickItem } from '../types';
+import type {
+	ExQuickPickItem,
+	FlattenSymbolRec
+} from '../types';
 
-interface FlattenSymbolRec
-{
-	symbol: vscode.DocumentSymbol;
-	depth: number;
-}
 
 function getFlattenSymbols(
 	symbols: vscode.DocumentSymbol[],
