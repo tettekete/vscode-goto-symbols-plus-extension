@@ -15,8 +15,51 @@
     "commands": [
       {
         "command": "tettekete.list-functions",
-        "title": "show function list",
+        "title": "list functions",
         "category": "FunctionList"
+      }
+    ],
+    "configuration": 
+    [
+      {
+        "title": "%functionList.config.title.indentation%",
+        "properties":{
+          "functionList.indentation": {
+            "type": "string",
+            "enum": [
+              "none",
+              "indent",
+              "tree"
+            ],
+            "enumItemLabels": [
+                    "%functionList.config.indentation.none%",
+                    "%functionList.config.indentation.indent%",
+                    "%functionList.config.indentation.tree%"
+                  ],
+            "default": "none",
+            "markdownDescription": "%functionList.config.desc.indentation%"
+          },
+          "functionList.indentString": {
+            "type": "string",
+            "default": "  ",
+            "markdownDescription": "%functionList.config.desc.indentString%"
+          }
+        }
+      },
+      {
+        "title": "%functionList.config.title.misc%",
+        "properties":{
+          "functionList.prefixString": {
+            "type": "string",
+            "default": "",
+             "markdownDescription": "%functionList.config.desc.prefixString%"
+          },
+          "functionList.showSymbolKind": {
+            "type": "boolean",
+            "default": false,
+             "markdownDescription": "%functionList.config.desc.showSymbolKind%"
+          }
+        }
       }
     ]
   },

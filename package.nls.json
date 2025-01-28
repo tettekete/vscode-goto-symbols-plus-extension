@@ -1,0 +1,11 @@
+{
+	"functionList.config.desc.indentString": "This is the string used for indentation when `Use indent string` is selected in the `Indentation` setting.",
+	"functionList.config.desc.indentation": "Specifies the indentation method for nested function lists.\n\n- `None`: No indentation\n\n- `Use indent string`: Uses the string set in `Indent String` for indentation\n\n- `Tree view`: Expresses the tree structure with lines\n\nThe reason `Tree view` is a beta version is because there is a possibility of “misalignment” on Windows.",
+	"functionList.config.desc.prefixString": "Prefix string",
+	"functionList.config.desc.showSymbolKind": "Display the type of symbol label too.",
+	"functionList.config.indentation.indent": "Use indent string",
+	"functionList.config.indentation.none": "None",
+	"functionList.config.indentation.tree": "Tree view(beta)",
+	"functionList.config.title.indentation": "Indentation",
+	"functionList.config.title.misc": "Other settings"
+}
