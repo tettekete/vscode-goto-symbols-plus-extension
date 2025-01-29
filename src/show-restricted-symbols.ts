@@ -5,6 +5,7 @@ import { markdownHeadingsList } from './lib/markdown-headings-list';
 
 import { ExQuickPickItem } from './types';
 import { HightLightBox } from './lib/hight-light-box';
+import { HtmlStructureList } from './lib/html-structure-list';
 
 export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 {
@@ -36,6 +37,10 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 	{
 		case 'markdown':
 			quickPickItems = markdownHeadingsList( documentSymbols );
+			break;
+
+		case 'html':
+			quickPickItems = HtmlStructureList( documentSymbols );
 			break;
 
 		// case 'restructuredtext':
