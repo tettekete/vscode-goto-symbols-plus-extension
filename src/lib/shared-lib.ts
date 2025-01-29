@@ -86,17 +86,24 @@ export function getNormalFlattenSymbols(
 export function SymbolsToQuickPickItemList(
 	{
 		flattenSymbols,
-		nameModifier
+		nameModifier,
+		iconPathProvider
 	}:
 	{
 		flattenSymbols:FlattenSymbolRec[];
 		nameModifier?:( symbolRec:FlattenSymbolRec ) => string
+		iconPathProvider?:( kind: vscode.SymbolKind ) => vscode.IconPath
 	}):ExQuickPickItem[]
 {
 	const qpItems:ExQuickPickItem[] = [];
 
 	const prefixStr:string = VSCConfig.prefixString('')!;
 	const showSymbolKind:boolean = VSCConfig.showSymbolKind( false )!;
+	let _iconPathHandler = getIconUriForQuickPick;
+	if( iconPathProvider )
+	{
+		_iconPathHandler = iconPathProvider;
+	}
 
 	for(const symbolRec of flattenSymbols )
 	{
@@ -112,7 +119,7 @@ export function SymbolsToQuickPickItemList(
 		{
 			label: [symbolRec.indent , prefixStr, name ].join(''),
 			symbol: docSymbol,
-			iconPath: getIconUriForQuickPick( docSymbol.kind )
+			iconPath: _iconPathHandler( docSymbol.kind )
 		};
 
 		if( showSymbolKind )
@@ -127,7 +134,7 @@ export function SymbolsToQuickPickItemList(
 }
 
 
-export function getIconUriForQuickPick( kind:vscode.SymbolKind ): vscode.Uri
+export function getIconUriForQuickPick( kind:vscode.SymbolKind ): vscode.IconPath
 {
 	let iconFile = 'unknown-icon.svg';
 	switch( kind )
