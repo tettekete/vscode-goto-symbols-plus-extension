@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 
 import { functionsOrClassesList } from './lib/functions-or-classes-list';
+import { markdownHeadingsList } from './lib/markdown-headings-list';
+
 import { ExQuickPickItem } from './types';
 import { HightLightBox } from './lib/hight-light-box';
 
@@ -29,11 +31,25 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		return;
 	}
 
-	const quickPickItems = functionsOrClassesList(
-		{
-			context,
-			documentSymbols
-		});
+	let quickPickItems:ExQuickPickItem[] | Error;
+	switch( languageId )
+	{
+		case 'markdown':
+			quickPickItems = markdownHeadingsList( documentSymbols );
+			break;
+
+		// case 'restructuredtext':
+		// case 'latex':
+		// case 'org':
+		// 	break;
+			
+
+		default:
+			quickPickItems = functionsOrClassesList( documentSymbols );
+			break;
+	}
+
+	
 	
 	if( quickPickItems instanceof Error )
 	{
