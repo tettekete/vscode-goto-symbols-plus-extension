@@ -15,14 +15,7 @@ import { VSCConfig } from './vsc-config';
 
 
 export function functionsOrClassesList(
-	{
-		documentSymbols,
-		context
-	}:
-	{
-		documentSymbols: vscode.DocumentSymbol[];
-		context: vscode.ExtensionContext
-	}
+	documentSymbols: vscode.DocumentSymbol[]
 ):ExQuickPickItem[] | Error
 {
 	const passFilter = (symbol:vscode.DocumentSymbol) =>
@@ -32,39 +25,14 @@ export function functionsOrClassesList(
 				symbol.kind === vscode.SymbolKind.Method;
 	};
 
-	const listType:string = VSCConfig.indentation('none')!;
-
-	let flattenSymbols:FlattenSymbolRec[];
-
-	switch( listType )
+	const flattenSymbols = getFlattenSymbols(
+		documentSymbols,
+		passFilter
+	);
+	
+	if( flattenSymbols instanceof Error )
 	{
-		case 'none':
-			flattenSymbols	= getFlattenSymbols(
-										documentSymbols,
-										passFilter,
-										''
-									);
-			break;
-
-		case 'indent':
-			flattenSymbols	= getFlattenSymbols(
-								documentSymbols,
-								passFilter,
-								VSCConfig.indentString('  ')
-							);
-			break;
-		
-		case 'tree':
-			flattenSymbols	= getFlattenTreeSymbols(
-								{
-									symbols: documentSymbols,
-									passFilter
-								}
-							);
-			break;
-		
-		default:
-			return Error('Unknown indent type.');
+		return flattenSymbols;
 	}
 	
 	return SymbolsToQuickPickItemList({ flattenSymbols });

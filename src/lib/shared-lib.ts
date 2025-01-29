@@ -8,9 +8,55 @@ import type {
 import { VSCConfig } from './vsc-config';
 import { ContextStore } from './context-store';
 import { makeIndent } from './utils';
+import { getFlattenTreeSymbols } from './flatten-tree-symbols';
 
 
-export function getFlattenSymbols(
+export function getFlattenSymbols
+(
+	documentSymbols: vscode.DocumentSymbol[],
+	passFilter:(symbol:vscode.DocumentSymbol) => boolean,
+):FlattenSymbolRec[] | Error
+{
+	const listType:string = VSCConfig.indentation('none')!;
+
+	let flattenSymbols:FlattenSymbolRec[];
+
+	switch( listType )
+	{
+		case 'none':
+			flattenSymbols	= getNormalFlattenSymbols(
+										documentSymbols,
+										passFilter,
+										''
+									);
+			break;
+
+		case 'indent':
+			flattenSymbols	= getNormalFlattenSymbols(
+								documentSymbols,
+								passFilter,
+								VSCConfig.indentString('  ')
+							);
+			break;
+		
+		case 'tree':
+			flattenSymbols	= getFlattenTreeSymbols(
+								{
+									symbols: documentSymbols,
+									passFilter
+								}
+							);
+			break;
+		
+		default:
+			return Error('Unknown indent type.');
+	}
+
+	return flattenSymbols;
+}
+
+
+export function getNormalFlattenSymbols(
 	symbols: vscode.DocumentSymbol[],
 	filter:(symbol:vscode.DocumentSymbol) => boolean,
 	indentStr: string = '',
@@ -25,7 +71,7 @@ export function getFlattenSymbols(
 			indent: makeIndent( indentStr , _depth )
 		};
 
-		const children	= getFlattenSymbols(
+		const children	= getNormalFlattenSymbols(
 							symbol.children
 							,filter
 							,indentStr
@@ -40,9 +86,11 @@ export function getFlattenSymbols(
 export function SymbolsToQuickPickItemList(
 	{
 		flattenSymbols,
+		nameModifier
 	}:
 	{
-		flattenSymbols:FlattenSymbolRec[]	
+		flattenSymbols:FlattenSymbolRec[];
+		nameModifier?:( symbolRec:FlattenSymbolRec ) => string
 	}):ExQuickPickItem[]
 {
 	const qpItems:ExQuickPickItem[] = [];
@@ -53,9 +101,16 @@ export function SymbolsToQuickPickItemList(
 	for(const symbolRec of flattenSymbols )
 	{
 		const docSymbol = symbolRec.symbol;
+		let name = docSymbol.name;
+
+		if( nameModifier )
+		{
+			name = nameModifier( symbolRec );
+		}
+
 		const qpItem:ExQuickPickItem =
 		{
-			label: [symbolRec.indent , prefixStr, docSymbol.name].join(''),
+			label: [symbolRec.indent , prefixStr, name ].join(''),
 			symbol: docSymbol,
 			iconPath: getIconUriForQuickPick( docSymbol.kind )
 		};
@@ -87,6 +142,10 @@ export function getIconUriForQuickPick( kind:vscode.SymbolKind ): vscode.Uri
 		
 		case vscode.SymbolKind.Method:
 			iconFile = 'm-icon.svg';
+			break;
+		
+		case vscode.SymbolKind.String:
+			iconFile = 'h-icon.svg';
 			break;
 	}
 
