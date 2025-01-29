@@ -82,6 +82,12 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 	quickPick.items = quickPickItems;
 	quickPick.placeholder = 'Select a symbol to navigate';
 
+	const activeItem = findCursorPosItem( editor , quickPickItems );
+	if( activeItem )
+	{
+		quickPick.activeItems = [activeItem];
+	}
+
 	quickPick.onDidChangeActive((selectedItems) =>
 		{
 			// console.debug('onDidChangeSelection:', selectedItems[0].label );
@@ -116,4 +122,26 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 
 	quickPick.show();
 	
+}
+
+
+function findCursorPosItem( editor:vscode.TextEditor ,quickPickItems:ExQuickPickItem[] ):ExQuickPickItem | undefined
+{
+	let activeItem:ExQuickPickItem | undefined = undefined;
+	for(const item of quickPickItems )
+	{
+		if( item.symbol.range.contains( editor.selection.active ) )
+		{
+			if( ! activeItem )
+			{
+				activeItem = item;
+			}
+			else if( activeItem.symbol.range.contains( item.symbol.range ) )
+			{
+				activeItem = item;
+			}
+		}
+	}
+
+	return activeItem;
 }
