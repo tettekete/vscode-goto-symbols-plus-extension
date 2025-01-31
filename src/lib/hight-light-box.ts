@@ -23,10 +23,16 @@ export class HightLightBox
 			return;
 		}
 
+		let isWholeLine = true;
+		if( range.start.line === range.end.line )
+		{
+			isWholeLine = false;
+		}
+
 		HightLightBox.#textEditorDecoration = vscode.window.createTextEditorDecorationType(
 			{
 				backgroundColor: new vscode.ThemeColor('editor.selectionBackground'),
-				isWholeLine: true
+				isWholeLine
 			}
 		);
 
