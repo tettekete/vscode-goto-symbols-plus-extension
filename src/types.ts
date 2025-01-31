@@ -11,4 +11,5 @@ export interface FlattenSymbolRec
 	symbol: vscode.DocumentSymbol;
 	depth: number;
 	indent: string;
+	forcedDescription?: string;
 }
