@@ -83,16 +83,16 @@ export function getNormalFlattenSymbols(
 }
 
 
-export function SymbolsToQuickPickItemList(
+export function SymbolsToQuickPickItemList<T extends FlattenSymbolRec = FlattenSymbolRec>(
 	{
 		flattenSymbols,
 		nameModifier,
 		iconPathProvider
 	}:
 	{
-		flattenSymbols:FlattenSymbolRec[];
-		nameModifier?:( symbolRec:FlattenSymbolRec ) => string
-		iconPathProvider?:( kind: vscode.SymbolKind ) => vscode.IconPath
+		flattenSymbols:T[];
+		nameModifier?:( symbolRec:T ) => string;
+		iconPathProvider?:( kind: vscode.SymbolKind ) => vscode.IconPath;
 	}):ExQuickPickItem[]
 {
 	const qpItems:ExQuickPickItem[] = [];
@@ -122,7 +122,11 @@ export function SymbolsToQuickPickItemList(
 			iconPath: _iconPathHandler( docSymbol.kind )
 		};
 
-		if( showSymbolKind )
+		if( symbolRec.forcedDescription )
+		{
+			qpItem['description'] = symbolRec.forcedDescription;
+		}
+		else if( showSymbolKind )
 		{
 			qpItem['description'] = vscode.SymbolKind[docSymbol.kind];
 		}
