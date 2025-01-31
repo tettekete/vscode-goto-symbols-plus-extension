@@ -87,12 +87,14 @@ export function SymbolsToQuickPickItemList<T extends FlattenSymbolRec = FlattenS
 	{
 		flattenSymbols,
 		nameModifier,
-		iconPathProvider
+		iconPathProvider,
+		quickPickItemModifier
 	}:
 	{
 		flattenSymbols:T[];
 		nameModifier?:( symbolRec:T ) => string;
 		iconPathProvider?:( kind: vscode.SymbolKind ) => vscode.IconPath;
+		quickPickItemModifier?:( symbolRec:T ,qpItem:ExQuickPickItem ) => ExQuickPickItem;
 	}):ExQuickPickItem[]
 {
 	const qpItems:ExQuickPickItem[] = [];
@@ -115,7 +117,7 @@ export function SymbolsToQuickPickItemList<T extends FlattenSymbolRec = FlattenS
 			name = nameModifier( symbolRec );
 		}
 
-		const qpItem:ExQuickPickItem =
+		let qpItem:ExQuickPickItem =
 		{
 			label: [symbolRec.indent , prefixStr, name ].join(''),
 			symbol: docSymbol,
@@ -129,6 +131,11 @@ export function SymbolsToQuickPickItemList<T extends FlattenSymbolRec = FlattenS
 		else if( showSymbolKind )
 		{
 			qpItem['description'] = vscode.SymbolKind[docSymbol.kind];
+		}
+
+		if( quickPickItemModifier )
+		{
+			qpItem = quickPickItemModifier( symbolRec , qpItem );
 		}
 
 		qpItems.push( qpItem );

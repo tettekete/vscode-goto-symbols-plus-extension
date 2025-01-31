@@ -39,18 +39,8 @@ export function HtmlStructureList(
 					'h-icon.svg'
 				);
 
-	const nameModifier = ( symbolRec: FlattenSymbolRec ) =>
+	const quickPickItemModifier = ( symbolRec: FlattenSymbolRec ,qpItem:ExQuickPickItem ) =>
 	{
-		const originName = symbolRec.symbol.name;
-		const matched = originName.match(/(\w+)(?:#(\S+))?/);
-		let tag = '';
-		let id:string | undefined;
-		if( matched )
-		{
-			tag = matched[1];
-			id = matched[2];
-		}
-
 		let theText:string = '';
 		let rangeText = document?.getText( symbolRec.symbol.range );
 		if( rangeText && typeof rangeText === 'string' )
@@ -68,25 +58,18 @@ export function HtmlStructureList(
 				theText = '';
 			}
 		}
-		const items = [ originName ];
-		let hasContentText = false;
+
 		if( theText && theText.length )
 		{
-			items.push( `"${theText}"` );
-			hasContentText = true;
-		}
-
-		let nameText = items.join(" : ");
-		if( nameText.length > 60 )
-		{
-			nameText = nameText.substring(0,70) + '...';
-			if( hasContentText )
+			if( theText.length > 100 )
 			{
-				nameText += '"';
+				theText = theText.substring(0,100);
 			}
+
+			qpItem['description'] = theText;
 		}
 
-		return nameText;
+		return qpItem;
 	};
 
 	const iconPathProvider = ( kind: vscode.SymbolKind ) =>
@@ -96,7 +79,7 @@ export function HtmlStructureList(
 
 	return SymbolsToQuickPickItemList({
 		flattenSymbols,
-		nameModifier,
+		quickPickItemModifier,
 		iconPathProvider
 	});
 }
