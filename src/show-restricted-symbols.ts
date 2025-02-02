@@ -30,7 +30,7 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 
 	if( ! documentSymbols || documentSymbols.length === 0 )
 	{
-		vscode.window.showInformationMessage('No symbols found in the document.');
+		showAsNoSymbols();
 		return;
 	}
 
@@ -159,4 +159,14 @@ function findCursorPosItem( editor:vscode.TextEditor ,quickPickItems:ExQuickPick
 	}
 
 	return activeItem;
+}
+
+
+function showAsNoSymbols()
+{
+	vscode.window.showQuickPick([
+		{
+			label: "No symbols found in the document.",
+			detail: "A language support extension is required to display symbols."
+		}]);
 }
