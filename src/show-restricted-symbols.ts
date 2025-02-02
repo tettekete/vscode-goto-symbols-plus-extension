@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import { findSymbolWithKind } from './lib/shared-lib';
 import { functionsOrClassesList } from './lib/functions-or-classes-list';
 import { markdownHeadingsList } from './lib/markdown-headings-list';
 
@@ -8,6 +9,7 @@ import { HightLightBox } from './lib/hight-light-box';
 import { HtmlStructureList } from './lib/html-structure-list';
 import { jsonStructureList } from './lib/json-structure-list';
 import { yamlStructureList } from './lib/yaml-structure-list';
+import { commonStructureList } from './lib/common-structure-list';
 
 export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 {
@@ -60,7 +62,15 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 			
 
 		default:
-			quickPickItems = functionsOrClassesList( documentSymbols );
+			if( isSymbolsIncludesFunctionOrMethod( documentSymbols ) )
+			{
+				quickPickItems = functionsOrClassesList( documentSymbols );
+			}
+			else
+			{
+				quickPickItems = commonStructureList( documentSymbols );
+			}
+			
 			break;
 	}
 
@@ -170,3 +180,23 @@ function showAsNoSymbols()
 			detail: "A language support extension is required to display symbols."
 		}]);
 }
+
+function isSymbolsIncludesFunctionOrMethod( docSymbols: vscode.DocumentSymbol[] ):boolean
+{
+	const symbol = findSymbolWithKind(
+		docSymbols,
+		(symbolKind :vscode.SymbolKind) =>
+		{
+			switch( symbolKind )
+			{
+				case vscode.SymbolKind.Function:
+				case vscode.SymbolKind.Class:
+				case vscode.SymbolKind.Method:
+					return true;
+			}
+			return false;
+		});
+
+	return !! symbol;
+}
+

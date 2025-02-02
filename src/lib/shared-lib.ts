@@ -174,3 +174,26 @@ export function getIconUriForQuickPick( kind:vscode.SymbolKind ): vscode.IconPat
 				iconFile
 			);;
 }
+
+
+export function findSymbolWithKind(
+	symbols: vscode.DocumentSymbol[],
+	matchFilter:(symbolKind :vscode.SymbolKind) => boolean
+):vscode.DocumentSymbol | undefined
+{
+	for(const symbol of symbols )
+	{
+		if( matchFilter( symbol.kind ) )
+		{
+			return symbol;
+		}
+
+		const found = findSymbolWithKind( symbol.children , matchFilter );
+		if( found )
+		{
+			return found;
+		}
+	}
+
+	return undefined;
+}
