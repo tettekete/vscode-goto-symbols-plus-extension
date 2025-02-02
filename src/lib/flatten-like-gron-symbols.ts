@@ -10,24 +10,43 @@ export function getFlattenLikeGronSymbols(
 	{
 		symbols,
 		passFilter,
+		valueParser,
 		editor
 	}:
 	{
 		symbols: vscode.DocumentSymbol[];
 		passFilter:(symbol:vscode.DocumentSymbol) => boolean;
+		valueParser?:(editor:vscode.TextEditor , range:vscode.Range) => string
 		editor: vscode.TextEditor
 	}
 ):FlattenNamePathSymbolRec[]
 {
-	const qpItems = flattenWithNamePath( symbols ,passFilter,editor );
+	let _valueParser;
 
-	return qpItems;
+	if( valueParser )
+	{
+		_valueParser = ( range:vscode.Range ) =>
+		{
+			return valueParser( editor , range );
+		};
+	}
+	else
+	{
+		_valueParser = ( range:vscode.Range ) =>
+		{
+			return getValueFromEditor( editor , range );
+		};
+	}
+
+	const flattenItems = flattenWithNamePath( symbols ,passFilter, _valueParser );
+
+	return flattenItems;
 }
 
 function flattenWithNamePath(
 	symbols: vscode.DocumentSymbol[],
 	passFilter:(symbol:vscode.DocumentSymbol) => boolean
-	,editor: vscode.TextEditor
+	,valueParser: ( range:vscode.Range ) => string
 	,_namePath = ''
 	,_parentKind:vscode.SymbolKind | undefined = undefined
 	,_depth = 0
@@ -68,7 +87,7 @@ function flattenWithNamePath(
 			case vscode.SymbolKind.String:
 			case vscode.SymbolKind.Number:
 			case vscode.SymbolKind.Boolean:
-				forceDesc = getValueFromEditor( editor , symbol.range );
+				forceDesc = valueParser( symbol.range );
 				break;
 
 			case vscode.SymbolKind.Variable:
@@ -96,7 +115,7 @@ function flattenWithNamePath(
 			const children = flattenWithNamePath(
 				symbol.children
 				,passFilter
-				,editor
+				,valueParser
 				,namePath
 				,symbol.kind
 				,_depth + 1
