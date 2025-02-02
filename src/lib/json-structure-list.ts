@@ -1,13 +1,6 @@
 import * as vscode from 'vscode';
-import type {
-	ExQuickPickItem,
-	FlattenSymbolRec
-} from '../types';
-import {
-	getFlattenSymbols,
-	SymbolsToQuickPickItemList
-} from './shared-lib';
-import { VSCConfig } from './vsc-config';
+import type { ExQuickPickItem } from '../types';
+import { SymbolsToQuickPickItemList } from './shared-lib';
 import { ContextStore } from './context-store';
 import { getFlattenLikeGronSymbols } from './flatten-like-gron-symbols';
 import type { FlattenNamePathSymbolRec } from './flatten-like-gron-symbols';
