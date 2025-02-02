@@ -15,25 +15,31 @@ import { VSCConfig } from './vsc-config';
 
 
 export function functionsOrClassesList(
-	documentSymbols: vscode.DocumentSymbol[]
+	documentSymbols: vscode.DocumentSymbol[],
+	passFilter?: (symbol:vscode.DocumentSymbol) => boolean
 ):ExQuickPickItem[] | Error
 {
-	const passFilter = (symbol:vscode.DocumentSymbol) =>
+	let _passFilter = (symbol:vscode.DocumentSymbol) =>
 	{
 		return	symbol.kind === vscode.SymbolKind.Function ||
 				symbol.kind === vscode.SymbolKind.Class ||
 				symbol.kind === vscode.SymbolKind.Method;
 	};
 
+	if( passFilter )
+	{
+		_passFilter = passFilter;
+	}
+
 	const flattenSymbols = getFlattenSymbols(
 		documentSymbols,
-		passFilter
+		_passFilter 
 	);
 	
 	if( flattenSymbols instanceof Error )
 	{
 		return flattenSymbols;
 	}
-	
+
 	return SymbolsToQuickPickItemList({ flattenSymbols });
 }
