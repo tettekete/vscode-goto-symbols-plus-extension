@@ -59,6 +59,17 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		// case 'latex':
 		// case 'org':
 		// 	break;
+
+		case 'perl':
+			quickPickItems = functionsOrClassesList(
+				documentSymbols ,
+				(symbol:vscode.DocumentSymbol) =>
+				{
+					return	symbol.kind === vscode.SymbolKind.Function ||
+									symbol.kind === vscode.SymbolKind.Package;
+				}
+			);
+			break;
 			
 
 		default:
