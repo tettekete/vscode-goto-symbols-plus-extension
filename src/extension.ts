@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 
-import { ContextStore } from './lib/context-store';
+import { VSCContext } from './lib/vsc-context';
 import { showRestrictedSymbols } from './show-restricted-symbols';
 
 export function activate(context: vscode.ExtensionContext)
 {
-	ContextStore.set( context );
+	VSCContext.setExtensionContext( context );
 
 	const disposable	= vscode.commands.registerCommand(
 							'tettekete.list-functions',

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import type { ExQuickPickItem } from '../types';
 import { getFlattenLikeGronSymbols } from './flatten-like-gron-symbols';
-import { ContextStore } from './context-store';
+import { VSCContext } from './vsc-context';
 import type { FlattenNamePathSymbolRec } from './flatten-like-gron-symbols';
 import { SymbolsToQuickPickItemList } from './shared-lib';
 import { parseYamlKV } from './parse-yaml-kv';
@@ -34,7 +34,7 @@ export function yamlStructureList(
 	}
 
 	const themeIcon = vscode.Uri.joinPath(
-						ContextStore.get().extensionUri,
+						VSCContext.extensionContext().extensionUri,
 						'media',
 						'h-icon.svg'
 					);

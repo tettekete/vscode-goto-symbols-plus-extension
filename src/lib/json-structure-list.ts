@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import type { ExQuickPickItem } from '../types';
 import { SymbolsToQuickPickItemList } from './shared-lib';
-import { ContextStore } from './context-store';
+import { VSCContext } from './vsc-context';
 import { getFlattenLikeGronSymbols } from './flatten-like-gron-symbols';
 import type { FlattenNamePathSymbolRec } from './flatten-like-gron-symbols';
 
@@ -34,7 +34,7 @@ export function jsonStructureList(
 	}
 
 	const themeIcon = vscode.Uri.joinPath(
-					ContextStore.get().extensionUri,
+					VSCContext.extensionContext().extensionUri,
 					'media',
 					'h-icon.svg'
 				);

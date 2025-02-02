@@ -6,7 +6,7 @@ import type {
 } from '../types';
 
 import { VSCConfig } from './vsc-config';
-import { ContextStore } from './context-store';
+import { VSCContext } from './vsc-context';
 import { makeIndent } from './utils';
 import { getFlattenTreeSymbols } from './flatten-tree-symbols';
 
@@ -167,7 +167,7 @@ export function getIconUriForQuickPick( kind:vscode.SymbolKind ): vscode.IconPat
 			break;
 	}
 
-	const context = ContextStore.get();
+	const context = VSCContext.extensionContext();
 	return	vscode.Uri.joinPath(
 				context.extensionUri,
 				"media",

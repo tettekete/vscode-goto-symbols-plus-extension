@@ -8,8 +8,7 @@ import {
 	SymbolsToQuickPickItemList
 } from './shared-lib';
 import { VSCConfig } from './vsc-config';
-import { ContextStore } from './context-store';
-
+import { VSCContext } from './vsc-context';
 
 export function HtmlStructureList(
 	documentSymbols: vscode.DocumentSymbol[]
@@ -34,7 +33,7 @@ export function HtmlStructureList(
 	}
 
 	const themeIcon = vscode.Uri.joinPath(
-					ContextStore.get().extensionUri,
+					VSCContext.extensionContext().extensionUri,
 					'media',
 					'h-icon.svg'
 				);
