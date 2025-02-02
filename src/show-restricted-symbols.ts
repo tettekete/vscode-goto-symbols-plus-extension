@@ -7,6 +7,7 @@ import { ExQuickPickItem } from './types';
 import { HightLightBox } from './lib/hight-light-box';
 import { HtmlStructureList } from './lib/html-structure-list';
 import { jsonStructureList } from './lib/json-structure-list';
+import { yamlStructureList } from './lib/yaml-structure-list';
 
 export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 {
@@ -46,6 +47,10 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 
 		case 'json':
 			quickPickItems = jsonStructureList( documentSymbols );
+			break;
+
+		case 'yaml':
+			quickPickItems = yamlStructureList( documentSymbols );
 			break;
 
 		// case 'restructuredtext':
