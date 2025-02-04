@@ -11,6 +11,7 @@ import { HtmlStructureList } from './lib/html-structure-list';
 import { jsonStructureList } from './lib/json-structure-list';
 import { yamlStructureList } from './lib/yaml-structure-list';
 import { commonStructureList } from './lib/common-structure-list';
+import { makefileForceDescriptionExtractor } from './lib/makefile-force-description-extractor';
 
 export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 {
@@ -65,11 +66,13 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 
 		case 'perl':
 			quickPickItems = functionsOrClassesList(
-				documentSymbols ,
-				(symbol:vscode.DocumentSymbol) =>
 				{
-					return	symbol.kind === vscode.SymbolKind.Function ||
-									symbol.kind === vscode.SymbolKind.Package;
+					documentSymbols ,
+					passFilter: (symbol:vscode.DocumentSymbol) =>
+					{
+						return	symbol.kind === vscode.SymbolKind.Function ||
+										symbol.kind === vscode.SymbolKind.Package;
+					}
 				}
 			);
 			break;
@@ -78,7 +81,7 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		default:
 			if( isSymbolsIncludesFunctionOrMethod( documentSymbols ) )
 			{
-				quickPickItems = functionsOrClassesList( documentSymbols );
+				quickPickItems = functionsOrClassesList({ documentSymbols });
 			}
 			else
 			{

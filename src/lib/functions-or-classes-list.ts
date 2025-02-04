@@ -12,11 +12,20 @@ import {
 
 import { getFlattenTreeSymbols } from './flatten-tree-symbols';
 import { VSCConfig } from './vsc-config';
+import { quickPickIconSelector } from './quickpick-icon-selector';
 
 
 export function functionsOrClassesList(
-	documentSymbols: vscode.DocumentSymbol[],
-	passFilter?: (symbol:vscode.DocumentSymbol) => boolean
+	{
+		documentSymbols,
+		passFilter,
+		quickPickItemModifier
+	}:
+	{
+		documentSymbols: vscode.DocumentSymbol[];
+		passFilter?: (symbol:vscode.DocumentSymbol) => boolean;
+		quickPickItemModifier?:( symbolRec:FlattenSymbolRec ,qpItem:ExQuickPickItem ) => ExQuickPickItem;
+	}
 ):ExQuickPickItem[] | Error
 {
 	let _passFilter = (symbol:vscode.DocumentSymbol) =>
@@ -31,15 +40,22 @@ export function functionsOrClassesList(
 		_passFilter = passFilter;
 	}
 
-	const flattenSymbols = getFlattenSymbols(
+	const flattenSymbolsOrError = getFlattenSymbols(
 		documentSymbols,
 		_passFilter 
 	);
 	
-	if( flattenSymbols instanceof Error )
+	if( flattenSymbolsOrError instanceof Error )
 	{
-		return flattenSymbols;
+		return flattenSymbolsOrError;
 	}
 
-	return SymbolsToQuickPickItemList({ flattenSymbols });
+	const flattenSymbols = flattenSymbolsOrError;
+
+	return SymbolsToQuickPickItemList(
+		{
+			flattenSymbols,
+			quickPickItemModifier
+		}
+	);
 }
