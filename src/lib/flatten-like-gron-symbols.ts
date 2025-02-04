@@ -53,6 +53,8 @@ function flattenWithNamePath(
 ):FlattenNamePathSymbolRec[]
 {
 	const filteredSymbols = symbols.filter( passFilter );
+	filteredSymbols.sort((a, b) => a.range.start.line - b.range.start.line);
+	
 	const flattenSymbols:FlattenNamePathSymbolRec[] = [];
 
 	if( _depth === 0 )

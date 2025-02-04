@@ -25,6 +25,8 @@ function flattenWithTreeMark(
 ):FlattenSymbolRec[]
 {
 	const filteredSymbols = symbols.filter( passFilter );
+	filteredSymbols.sort((a, b) => a.range.start.line - b.range.start.line);
+	
 	const flattenSymbols:FlattenSymbolRec[] = [];
 
 	for(let i=0;i<filteredSymbols.length;i++ )

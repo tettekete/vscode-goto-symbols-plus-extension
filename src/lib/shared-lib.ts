@@ -63,6 +63,8 @@ export function getNormalFlattenSymbols(
 	_depth = 0
 ):FlattenSymbolRec[]
 {
+	symbols.sort((a, b) => a.range.start.line - b.range.start.line);
+	
 	return symbols.filter( filter ).flatMap( (symbol) =>
 	{
 		const item:FlattenSymbolRec= {
