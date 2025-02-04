@@ -32,12 +32,6 @@ export function HtmlStructureList(
 		return flattenSymbols;
 	}
 
-	const themeIcon = vscode.Uri.joinPath(
-					VSCContext.extensionContext().extensionUri,
-					'media',
-					'h-icon.svg'
-				);
-
 	const quickPickItemModifier = ( symbolRec: FlattenSymbolRec ,qpItem:ExQuickPickItem ) =>
 	{
 		let theText:string = '';
@@ -71,14 +65,8 @@ export function HtmlStructureList(
 		return qpItem;
 	};
 
-	const iconPathProvider = ( kind: vscode.SymbolKind ) =>
-	{
-		return themeIcon;
-	};
-
 	return SymbolsToQuickPickItemList({
 		flattenSymbols,
-		quickPickItemModifier,
-		iconPathProvider
+		quickPickItemModifier
 	});
 }

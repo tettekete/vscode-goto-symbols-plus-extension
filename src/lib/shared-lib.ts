@@ -9,7 +9,7 @@ import { VSCConfig } from './vsc-config';
 import { VSCContext } from './vsc-context';
 import { makeIndent } from './utils';
 import { getFlattenTreeSymbols } from './flatten-tree-symbols';
-
+import { quickPickIconSelector } from './quickpick-icon-selector';
 
 export function getFlattenSymbols
 (
@@ -101,7 +101,7 @@ export function SymbolsToQuickPickItemList<T extends FlattenSymbolRec = FlattenS
 
 	const prefixStr:string = VSCConfig.prefixString('')!;
 	const showSymbolKind:boolean = VSCConfig.showSymbolKind( false )!;
-	let _iconPathHandler = getIconUriForQuickPick;
+	let _iconPathHandler = quickPickIconSelector;
 	if( iconPathProvider )
 	{
 		_iconPathHandler = iconPathProvider;

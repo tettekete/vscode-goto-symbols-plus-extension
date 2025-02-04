@@ -33,25 +33,13 @@ export function jsonStructureList(
 		return flattenSymbols;
 	}
 
-	const themeIcon = vscode.Uri.joinPath(
-					VSCContext.extensionContext().extensionUri,
-					'media',
-					'h-icon.svg'
-				);
-
 	const nameModifier = ( symbolRec: FlattenNamePathSymbolRec ) =>
 	{
 		return symbolRec.namePath;
 	};
-
-	const iconPathProvider = ( kind: vscode.SymbolKind ) =>
-	{
-		return themeIcon;
-	};
 	
 	return SymbolsToQuickPickItemList({
 		flattenSymbols,
-		nameModifier,
-		iconPathProvider
+		nameModifier
 	});
 }
