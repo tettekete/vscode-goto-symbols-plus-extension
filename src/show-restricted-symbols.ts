@@ -76,6 +76,20 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 				}
 			);
 			break;
+		
+		case 'makefile':
+			quickPickItems = functionsOrClassesList(
+				{
+					documentSymbols ,
+					passFilter: (symbol:vscode.DocumentSymbol) =>
+					{
+						return	symbol.kind === vscode.SymbolKind.Field;
+					},
+					quickPickItemModifier: makefileForceDescriptionExtractor
+				}
+			);
+			break;
+
 			
 
 		default:
