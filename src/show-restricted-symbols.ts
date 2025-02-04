@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import { VSCContext } from './lib/vsc-context';
 import { findSymbolWithKind } from './lib/shared-lib';
 import { functionsOrClassesList } from './lib/functions-or-classes-list';
 import { markdownHeadingsList } from './lib/markdown-headings-list';
@@ -19,6 +20,8 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		vscode.window.showErrorMessage('No active editor found.');
 		return;
 	}
+
+	VSCContext.setEditor( editor );
 
 	const document = editor.document;
 	const languageId = document.languageId;
