@@ -139,6 +139,13 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		editor.selection = new vscode.Selection(range.start, range.start);
 	};
 
+	// closure for canceled
+	const visibleRange = editor.visibleRanges[0];
+	const returnToCursorPos = () =>
+	{		
+		editor.revealRange( visibleRange );
+	};
+
 	const quickPick = vscode.window.createQuickPick<ExQuickPickItem>();
 	quickPick.items = quickPickItems;
 	quickPick.placeholder = 'Select a symbol to navigate';
@@ -160,9 +167,11 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		}
 	);
 	
+	let quickPickDidAccept = false;
 	quickPick.onDidAccept(()=>
 		{
 			HightLightBox.dispose();
+			quickPickDidAccept = true;
 
 			const selected = quickPick.selectedItems[0];
 			if( selected )
@@ -178,6 +187,11 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 		{
 			HightLightBox.dispose();
 			quickPick.dispose();
+
+			if( ! quickPickDidAccept )
+			{
+				returnToCursorPos();
+			}
 		}
 	);
 
