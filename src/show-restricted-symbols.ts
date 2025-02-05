@@ -93,6 +93,7 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 			
 		case 'typescript':
 		case 'javascript':
+		case 'python':
 		case 'csharp':
 			quickPickItems = functionsOrClassesList({ documentSymbols });
 			break;
