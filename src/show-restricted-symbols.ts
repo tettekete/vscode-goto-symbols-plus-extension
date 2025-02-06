@@ -130,7 +130,23 @@ export async function showRestrictedSymbols()
 				}
 			);
 			break;
+		
 
+		case 'ruby':
+			{
+				const rbSymbols = new Set( defaultSet );
+				rbSymbols.add( vscode.SymbolKind.Module );	// module kind is Module.
+				quickPickItems = functionsOrClassesList(
+					{
+						documentSymbols ,
+						passFilter: (symbol:vscode.DocumentSymbol) =>
+						{
+							return rbSymbols.has( symbol.kind );
+						}
+					}
+				);
+			}
+			break;
 		
 		case 'javascript':
 		case 'java':
