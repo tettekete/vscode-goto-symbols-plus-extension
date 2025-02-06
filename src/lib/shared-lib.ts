@@ -10,6 +10,7 @@ import { VSCContext } from './vsc-context';
 import { makeIndent } from './utils';
 import { getFlattenTreeSymbols } from './flatten-tree-symbols';
 import { quickPickIconSelector } from './quickpick-icon-selector';
+import { HightLightBox } from './hight-light-box';
 
 export function getFlattenSymbols
 (
@@ -198,4 +199,131 @@ export function findSymbolWithKind(
 	}
 
 	return undefined;
+}
+
+export function showAsNoSymbols()
+{
+	vscode.window.showQuickPick([
+		{
+			label: "No symbols found in the document.",
+			detail: "A language support extension is required to display symbols."
+		}]);
+}
+
+
+export function createAndShowQuickPick( quickPickItems:ExQuickPickItem[] | Error )
+{
+	if( quickPickItems instanceof Error )
+	{
+		vscode.window.showInformationMessage( quickPickItems.message );
+		return;
+	}
+
+	const editor		= VSCContext.editor();
+	const previewSymbol = ( exPickItem:ExQuickPickItem ) =>
+	{	
+		// move to symbol
+		const { symbol } = exPickItem;
+		editor.revealRange(symbol.range, vscode.TextEditorRevealType.Default);
+
+		// create hight light box
+		HightLightBox.showWithRange( symbol.range );
+	};
+	
+	const gotoSymbol = (exPickItem:ExQuickPickItem ) =>
+	{
+		HightLightBox.dispose();
+
+		const { symbol } = exPickItem;
+		const range = symbol.range;
+
+		editor.revealRange(range, vscode.TextEditorRevealType.Default);
+		editor.selection = new vscode.Selection(range.start, range.start);
+	};
+
+	// closure for canceled
+	const visibleRange = editor.visibleRanges[0];
+	const returnToCursorPos = () =>
+	{		
+		editor.revealRange( visibleRange );
+	};
+
+
+	// create QuickPick
+	const quickPick = vscode.window.createQuickPick<ExQuickPickItem>();
+	quickPick.items = quickPickItems;
+	quickPick.placeholder = 'Select a symbol to navigate';
+
+	const activeItem = findCursorPosItem( editor , quickPickItems );
+	if( activeItem )
+	{
+		quickPick.activeItems = [activeItem];
+	}
+
+	// define preview callback
+	quickPick.onDidChangeActive((selectedItems) =>
+		{
+			const selection = selectedItems[0];
+			if( selection )
+			{
+				previewSymbol( selection );
+			}
+		}
+	);
+
+	// define callback on decision by user
+	let quickPickDidAccept = false;
+	quickPick.onDidAccept(()=>
+		{
+			HightLightBox.dispose();
+			quickPickDidAccept = true;
+
+			const selected = quickPick.selectedItems[0];
+			if( selected )
+			{
+				gotoSymbol( selected );
+			}
+
+			quickPick.hide();
+		}
+	);
+
+	// define callback in canceled by user
+	quickPick.onDidHide(() =>
+		{
+			HightLightBox.dispose();
+			quickPick.dispose();
+
+			if( ! quickPickDidAccept )
+			{
+				returnToCursorPos();
+			}
+		}
+	);
+	
+	// show QuickPick
+	quickPick.show();
+
+}
+
+
+export function findCursorPosItem( editor:vscode.TextEditor ,quickPickItems:ExQuickPickItem[] ):ExQuickPickItem | undefined
+{
+	let activeItem:ExQuickPickItem | undefined = undefined;
+	for(const item of quickPickItems )
+	{
+		if( item.symbol.range.contains( editor.selection.active ) )
+		{
+			if( ! activeItem )
+			{
+				activeItem = item;
+			}
+			else if( activeItem.symbol.range.contains( item.symbol.range ) )
+			{
+				activeItem = item;
+			}
+		}
+	}
+
+	return activeItem;
 }

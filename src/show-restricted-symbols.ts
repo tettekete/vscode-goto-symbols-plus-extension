@@ -1,31 +1,28 @@
 import * as vscode from 'vscode';
 
 import { VSCContext } from './lib/vsc-context';
-import { findSymbolWithKind } from './lib/shared-lib';
+import
+{
+	findSymbolWithKind,
+	showAsNoSymbols,
+	createAndShowQuickPick
+} from './lib/shared-lib';
+
 import { functionsOrClassesList } from './lib/functions-or-classes-list';
 import { markdownHeadingsList } from './lib/markdown-headings-list';
 
-import { ExQuickPickItem } from './types';
-import { HightLightBox } from './lib/hight-light-box';
+import type { ExQuickPickItem } from './types';
 import { HtmlStructureList } from './lib/html-structure-list';
 import { jsonStructureList } from './lib/json-structure-list';
 import { yamlStructureList } from './lib/yaml-structure-list';
 import { commonStructureList } from './lib/common-structure-list';
 import { makefileForceDescriptionExtractor } from './lib/makefile-force-description-extractor';
 
-export async function showRestrictedSymbols( context: vscode.ExtensionContext )
+export async function showRestrictedSymbols()
 {
-	const editor = vscode.window.activeTextEditor;
-	if( ! editor )
-	{
-		vscode.window.showErrorMessage('No active editor found.');
-		return;
-	}
-
-	VSCContext.setEditor( editor );
-
-	const document = editor.document;
-	const languageId = document.languageId;
+	const editor		= VSCContext.editor();
+	const document		= editor.document;
+	const languageId	= document.languageId;
 
 	// 現在のファイルのシンボルを取得
     const documentSymbols	= (await vscode.commands.executeCommand(
@@ -112,125 +109,9 @@ export async function showRestrictedSymbols( context: vscode.ExtensionContext )
 	}
 
 	
-	
-	if( quickPickItems instanceof Error )
-	{
-		vscode.window.showInformationMessage( quickPickItems.message );
-		return;
-	}
-	
-	const previewSymbol = ( exPickItem:ExQuickPickItem ) =>
-	{	
-		// move to symbol
-		const { symbol } = exPickItem;
-		editor.revealRange(symbol.range, vscode.TextEditorRevealType.Default);
-
-		// create hight light box
-		HightLightBox.showWithRange( symbol.range );
-	};
-	
-	const gotoSymbol = (exPickItem:ExQuickPickItem ) =>
-	{
-		HightLightBox.dispose();
-
-		const { symbol } = exPickItem;
-		const range = symbol.range;
-
-		editor.revealRange(range, vscode.TextEditorRevealType.Default);
-		editor.selection = new vscode.Selection(range.start, range.start);
-	};
-
-	// closure for canceled
-	const visibleRange = editor.visibleRanges[0];
-	const returnToCursorPos = () =>
-	{		
-		editor.revealRange( visibleRange );
-	};
-
-	const quickPick = vscode.window.createQuickPick<ExQuickPickItem>();
-	quickPick.items = quickPickItems;
-	quickPick.placeholder = 'Select a symbol to navigate';
-
-	const activeItem = findCursorPosItem( editor , quickPickItems );
-	if( activeItem )
-	{
-		quickPick.activeItems = [activeItem];
-	}
-
-	quickPick.onDidChangeActive((selectedItems) =>
-		{
-			// console.debug('onDidChangeSelection:', selectedItems[0].label );
-			const selection = selectedItems[0];
-			if( selection )
-			{
-				previewSymbol( selection );
-			}
-		}
-	);
-	
-	let quickPickDidAccept = false;
-	quickPick.onDidAccept(()=>
-		{
-			HightLightBox.dispose();
-			quickPickDidAccept = true;
-
-			const selected = quickPick.selectedItems[0];
-			if( selected )
-			{
-				gotoSymbol( selected );
-			}
-
-			quickPick.hide();
-		}
-	);
-
-	quickPick.onDidHide(() =>
-		{
-			HightLightBox.dispose();
-			quickPick.dispose();
-
-			if( ! quickPickDidAccept )
-			{
-				returnToCursorPos();
-			}
-		}
-	);
-
-	quickPick.show();
-	
+	createAndShowQuickPick( quickPickItems );
 }
 
-
-function findCursorPosItem( editor:vscode.TextEditor ,quickPickItems:ExQuickPickItem[] ):ExQuickPickItem | undefined
-{
-	let activeItem:ExQuickPickItem | undefined = undefined;
-	for(const item of quickPickItems )
-	{
-		if( item.symbol.range.contains( editor.selection.active ) )
-		{
-			if( ! activeItem )
-			{
-				activeItem = item;
-			}
-			else if( activeItem.symbol.range.contains( item.symbol.range ) )
-			{
-				activeItem = item;
-			}
-		}
-	}
-
-	return activeItem;
-}
-
-
-function showAsNoSymbols()
-{
-	vscode.window.showQuickPick([
-		{
-			label: "No symbols found in the document.",
-			detail: "A language support extension is required to display symbols."
-		}]);
-}
 
 function isSymbolsIncludesFunctionOrMethod( docSymbols: vscode.DocumentSymbol[] ):boolean
 {

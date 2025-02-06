@@ -9,13 +9,20 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "tettekete.list-functions",
         "title": "list functions",
+        "category": "FunctionList"
+      },
+      {
+        "command": "tettekete.list-structures",
+        "title": "list structures",
         "category": "FunctionList"
       }
     ],
