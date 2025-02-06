@@ -148,6 +148,23 @@ export async function showRestrictedSymbols()
 			}
 			break;
 		
+
+		case 'rust':
+			{
+				const rustSymbols = new Set( defaultSet );
+				rustSymbols.add( vscode.SymbolKind.Module );	// mod kind is Module.
+				quickPickItems = functionsOrClassesList(
+					{
+						documentSymbols ,
+						passFilter: (symbol:vscode.DocumentSymbol) =>
+						{
+							return rustSymbols.has( symbol.kind );
+						}
+					}
+				);
+			}
+			break;
+		
 		case 'javascript':
 		case 'java':
 		case 'python':
