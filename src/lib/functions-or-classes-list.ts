@@ -10,10 +10,6 @@ import {
 	SymbolsToQuickPickItemList
 } from './shared-lib';
 
-import { getFlattenTreeSymbols } from './flatten-tree-symbols';
-import { VSCConfig } from './vsc-config';
-import { quickPickIconSelector } from './quickpick-icon-selector';
-
 
 export function functionsOrClassesList(
 	{
