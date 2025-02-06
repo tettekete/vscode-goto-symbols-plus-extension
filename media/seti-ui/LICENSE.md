@@ -1,3 +1,14 @@
+Original Source Notice
+
+This code (or portions of it) is adapted from the seti-ui repository, 
+maintained by Jesse Weed, which can be found at:
+
+[jesseweed/seti-ui](https://github.com/jesseweed/seti-ui)
+
+Below is the full text of the MIT License that applies to this code:
+
+----------------------------------------------------------------
+
 Copyright (c) 2014 Jesse Weed
 
 Permission is hereby granted, free of charge, to any person obtaining
