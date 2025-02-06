@@ -103,32 +103,36 @@ export async function showRestrictedSymbols()
 
 			
 		case 'cpp':
-			quickPickItems = functionsOrClassesList(
-				{
-					documentSymbols ,
-					passFilter: (symbol:vscode.DocumentSymbol) =>
+			{
+				const cppSymbols = new Set( defaultSet );
+				cppSymbols.add( vscode.SymbolKind.Namespace );
+				quickPickItems = functionsOrClassesList(
 					{
-						const cppSymbols = new Set( defaultSet );
-						cppSymbols.add( vscode.SymbolKind.Namespace );
-						return cppSymbols.has( symbol.kind );
+						documentSymbols ,
+						passFilter: (symbol:vscode.DocumentSymbol) =>
+						{
+							return cppSymbols.has( symbol.kind );
+						}
 					}
-				}
-			);
+				);
+			}
 			break;
 
 		
 		case 'typescript':
-			quickPickItems = functionsOrClassesList(
-				{
-					documentSymbols ,
-					passFilter: (symbol:vscode.DocumentSymbol) =>
+			{
+				const tsSymbols = new Set( defaultSet );
+				tsSymbols.add( vscode.SymbolKind.Module );	// namespace kind is Module.
+				quickPickItems = functionsOrClassesList(
 					{
-						const tsSymbols = new Set( defaultSet );
-						tsSymbols.add( vscode.SymbolKind.Module );	// namespace kind is Module.
-						return tsSymbols.has( symbol.kind );
+						documentSymbols ,
+						passFilter: (symbol:vscode.DocumentSymbol) =>
+						{
+							return tsSymbols.has( symbol.kind );
+						}
 					}
-				}
-			);
+				);
+			}
 			break;
 		
 
