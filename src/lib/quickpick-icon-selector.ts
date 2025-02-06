@@ -67,6 +67,19 @@ kindIconMap[vscode.SymbolKind.String] =
 	light: 'vscode-icons/light/symbol-string.svg',
 };
 
+kindIconMap[vscode.SymbolKind.Field] =
+{
+	dark: 'vscode-icons/dark/symbol-field.svg',
+	light: 'vscode-icons/light/symbol-field.svg',
+};
+
+
+kindIconMap[vscode.SymbolKind.Variable] =
+{
+	dark: 'vscode-icons/dark/symbol-variable.svg',
+	light: 'vscode-icons/light/symbol-variable.svg',
+};
+
 
 function buildUriUnderMedia(...args:string[]):vscode.Uri
 {
