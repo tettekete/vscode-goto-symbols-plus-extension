@@ -20,7 +20,15 @@ import { makefileForceDescriptionExtractor } from './lib/makefile-force-descript
 
 export async function showRestrictedSymbols()
 {
-	const editor		= VSCContext.editor();
+	const editor = vscode.window.activeTextEditor;
+	if( ! editor )
+	{
+		vscode.window.showErrorMessage('No active editor found.');
+		return;
+	}
+
+	VSCContext.setEditor( editor );
+
 	const document		= editor.document;
 	const languageId	= document.languageId;
 

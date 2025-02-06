@@ -8,15 +8,6 @@ export function activate(context: vscode.ExtensionContext)
 {
 	VSCContext.setExtensionContext( context );
 
-	const editor = vscode.window.activeTextEditor;
-	if( ! editor )
-	{
-		vscode.window.showErrorMessage('No active editor found.');
-		return;
-	}
-
-	VSCContext.setEditor( editor );
-
 	// main command
 	const listFunctions	= vscode.commands.registerCommand(
 							'tettekete.list-functions',
