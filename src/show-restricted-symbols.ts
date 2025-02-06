@@ -118,6 +118,20 @@ export async function showRestrictedSymbols()
 
 		
 		case 'typescript':
+			quickPickItems = functionsOrClassesList(
+				{
+					documentSymbols ,
+					passFilter: (symbol:vscode.DocumentSymbol) =>
+					{
+						const tsSymbols = new Set( defaultSet );
+						tsSymbols.add( vscode.SymbolKind.Module );	// namespace kind is Module.
+						return tsSymbols.has( symbol.kind );
+					}
+				}
+			);
+			break;
+
+		
 		case 'javascript':
 		case 'java':
 		case 'python':
