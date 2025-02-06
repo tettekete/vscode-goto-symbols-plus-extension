@@ -38,6 +38,12 @@ export async function showRestrictedSymbols()
 	}
 
 	let quickPickItems:ExQuickPickItem[] | Error;
+	const defaultSet = new Set([
+		vscode.SymbolKind.Function,
+		vscode.SymbolKind.Class,
+		vscode.SymbolKind.Method
+	]);
+
 	switch( languageId )
 	{
 		case 'markdown':
@@ -88,9 +94,26 @@ export async function showRestrictedSymbols()
 			break;
 
 			
+		case 'cpp':
+			quickPickItems = functionsOrClassesList(
+				{
+					documentSymbols ,
+					passFilter: (symbol:vscode.DocumentSymbol) =>
+					{
+						const cppSymbols = new Set( defaultSet );
+						cppSymbols.add( vscode.SymbolKind.Namespace );
+						return cppSymbols.has( symbol.kind );
+					}
+				}
+			);
+			break;
+
+		
 		case 'typescript':
 		case 'javascript':
+		case 'java':
 		case 'python':
+		case 'c':
 		case 'csharp':
 			quickPickItems = functionsOrClassesList({ documentSymbols });
 			break;
