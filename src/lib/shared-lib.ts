@@ -226,6 +226,11 @@ export function createAndShowQuickPick( quickPickItems:ExQuickPickItem[] | Error
 		const { symbol } = exPickItem;
 		editor.revealRange(symbol.range, vscode.TextEditorRevealType.Default);
 
+		if( symbol.range.isEmpty )
+		{
+			symbol.range = editor.document.lineAt( symbol.range.start.line ).range;
+		}
+
 		// create hight light box
 		HightLightBox.showWithRange( symbol.range );
 	};
