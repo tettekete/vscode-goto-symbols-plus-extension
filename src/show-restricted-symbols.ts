@@ -176,6 +176,7 @@ export async function showRestrictedSymbols()
 		case 'go':
 		case 'php':
 		case 'csharp':
+		case 'shellscript':
 			quickPickItems = functionsOrClassesList({ documentSymbols });
 			break;
 
