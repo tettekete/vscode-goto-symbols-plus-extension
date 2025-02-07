@@ -73,11 +73,16 @@ kindIconMap[vscode.SymbolKind.Field] =
 	light: 'vscode-icons/light/symbol-field.svg',
 };
 
-
 kindIconMap[vscode.SymbolKind.Variable] =
 {
 	dark: 'vscode-icons/dark/symbol-variable.svg',
 	light: 'vscode-icons/light/symbol-variable.svg',
+};
+
+kindIconMap[vscode.SymbolKind.Struct] =
+{
+	dark: 'vscode-icons/dark/symbol-structure.svg',
+	light: 'vscode-icons/light/symbol-structure.svg',
 };
 
 
