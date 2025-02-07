@@ -173,6 +173,7 @@ export async function showRestrictedSymbols()
 		case 'java':
 		case 'python':
 		case 'c':
+		case 'go':
 		case 'csharp':
 			quickPickItems = functionsOrClassesList({ documentSymbols });
 			break;
