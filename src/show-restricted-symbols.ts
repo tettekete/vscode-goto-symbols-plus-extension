@@ -17,6 +17,8 @@ import { jsonStructureList } from './lib/json-structure-list';
 import { yamlStructureList } from './lib/yaml-structure-list';
 import { commonStructureList } from './lib/common-structure-list';
 import { makefileForceDescriptionExtractor } from './lib/makefile-force-description-extractor';
+import { dockerfileForceDescriptionExtractor } from './lib/dockerfile-force-description-extractor';
+
 
 export async function showRestrictedSymbols()
 {
@@ -67,6 +69,7 @@ export async function showRestrictedSymbols()
 			break;
 
 		case 'yaml':
+		case 'dockercompose':
 			quickPickItems = yamlStructureList( documentSymbols );
 			break;
 
@@ -101,7 +104,16 @@ export async function showRestrictedSymbols()
 			);
 			break;
 
-			
+		case 'dockerfile':
+			quickPickItems = functionsOrClassesList(
+				{
+					documentSymbols ,
+					quickPickItemModifier: dockerfileForceDescriptionExtractor
+				}
+			);
+			break;
+
+		
 		case 'cpp':
 			{
 				const cppSymbols = new Set( defaultSet );
