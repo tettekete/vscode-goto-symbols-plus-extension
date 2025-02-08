@@ -6,8 +6,8 @@
 	"gotoSymbolsPlus.config.indentation.indent": "指定した文字列をインデントに使う",
 	"gotoSymbolsPlus.config.indentation.none": "無し",
 	"gotoSymbolsPlus.config.indentation.tree": "ツリー表示",
-	"gotoSymbolsPlus.config.makefile.showDependenciesAsLabel": "makefile でターゲットの依存情報をラベルとして表示する。\n\nラベルとして表示した場合、ターゲットと依存が一緒に表示される代わりにテキスト入力による絞り込み対象となります。\n\nチェックを外した場合 description として表示され、見やすくなる代わりに絞り込み対象に含まれなくなります。",
+	"gotoSymbolsPlus.config.makefile.showDependenciesAsLabel": "Makefile でターゲットの依存情報をラベルとして表示する。\n\nラベルとして表示した場合、ターゲットと依存が一緒に表示される代わりにテキスト入力による絞り込み対象となります。\n\nチェックを外した場合 description として表示され、見やすくなる代わりに絞り込み対象に含まれなくなります。",
 	"gotoSymbolsPlus.config.title.indentation": "インデント",
 	"gotoSymbolsPlus.config.title.misc": "その他設定",
-	"gotoSymbolsPlus.description": "関数やメソッドに加え JSON 等の構造をインデント付きのリストやツリーで表示する事ができ VS Code の「エディター内のシンボルへ移動...」より使いやすいナビゲーションを提供します。"
+	"gotoSymbolsPlus.description": "関数やメソッドに加え JSON 等の構造をインデント付きのリストやツリーで表示する機能を提供し VS Code の「エディター内のシンボルへ移動...」より意義のあるナビゲーションを提供します。"
 }
