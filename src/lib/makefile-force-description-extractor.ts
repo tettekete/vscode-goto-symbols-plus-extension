@@ -1,5 +1,4 @@
-import * as vscode from 'vscode';
-
+import { VSCConfig } from './vsc-config';
 import type {
 	ExQuickPickItem,
 	FlattenSymbolRec
@@ -32,7 +31,15 @@ export function makefileForceDescriptionExtractor( symbolRec:FlattenSymbolRec ,q
 
 	if( dependence.length )
 	{
-		qpItem['description'] = dependence;
+		if( VSCConfig.showDependenciesAsLabelInMakefile() )
+		{
+			qpItem['label'] = `${qpItem['label']}: ${dependence}`;
+		}
+		else
+		{
+			qpItem['description'] = dependence;
+		}
+		
 	}
 
 	return qpItem;

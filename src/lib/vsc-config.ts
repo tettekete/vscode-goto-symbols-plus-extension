@@ -52,6 +52,17 @@ export class VSCConfig
 	}
 
 	// - - - - - - - - - - - - - - - - - - - -
+	// showDependenciesAsLabelInMakefile<boolean>
+	// - - - - - - - - - - - - - - - - - - - -
+	static showDependenciesAsLabelInMakefile( fallback?: boolean ):boolean | undefined
+	{
+		return VSCConfig._booleanConfig(
+			'gotoSymbolsPlus.makefile.showDependenciesAsLabel'
+			,fallback
+		);
+	}
+
+	// - - - - - - - - - - - - - - - - - - - -
 	// private utilities
 	// - - - - - - - - - - - - - - - - - - - -
 	static _stringConfig( configName: string , fallback?: string ):string | undefined

@@ -6,6 +6,7 @@
 	"gotoSymbolsPlus.config.indentation.indent": "Use indent string",
 	"gotoSymbolsPlus.config.indentation.none": "None",
 	"gotoSymbolsPlus.config.indentation.tree": "Tree view",
+	"gotoSymbolsPlus.config.makefile.showDependenciesAsLabel": "Display target dependency information as labels in the Makefile.\n\nWhen shown as labels, targets and their dependencies are displayed together, making them searchable through text input.\n\nIf this option is unchecked, dependencies are displayed as descriptions instead. This improves readability but excludes them from text-based filtering.",
 	"gotoSymbolsPlus.config.title.indentation": "Indentation",
 	"gotoSymbolsPlus.config.title.misc": "Other settings",
 	"gotoSymbolsPlus.description": "Enhances VS Code's 'Go to Symbol in Editor…' with a curated, indented list of functions, methods, and structures (including JSON, YAML, etc.) for swift and clear navigation."

@@ -65,6 +65,11 @@
             "type": "boolean",
             "default": false,
              "markdownDescription": "%gotoSymbolsPlus.config.desc.showSymbolKind%"
+          },
+          "gotoSymbolsPlus.makefile.showDependenciesAsLabel": {
+            "type": "boolean",
+            "default": true,
+             "markdownDescription": "%gotoSymbolsPlus.config.makefile.showDependenciesAsLabel%"
           }
         }
       }
