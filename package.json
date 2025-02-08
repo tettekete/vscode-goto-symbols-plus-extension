@@ -1,7 +1,7 @@
 {
-  "name": "function-list",
-  "displayName": "Function List",
-  "description": "It provides a feature to list and move items such as functions, methods, classes, and markdown headings.",
+  "name": "goto-symbols-plus",
+  "displayName": "Goto Symbols+",
+  "description": "%gotoSymbolsPlus.description%",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.96.0"
@@ -18,20 +18,20 @@
       {
         "command": "tettekete.list-functions",
         "title": "list functions",
-        "category": "FunctionList"
+        "category": "Goto Symbols+"
       },
       {
         "command": "tettekete.list-structures",
         "title": "list structures",
-        "category": "FunctionList"
+        "category": "Goto Symbols+"
       }
     ],
     "configuration": 
     [
       {
-        "title": "%functionList.config.title.indentation%",
+        "title": "%gotoSymbolsPlus.config.title.indentation%",
         "properties":{
-          "functionList.indentation": {
+          "gotoSymbolsPlus.indentation": {
             "type": "string",
             "enum": [
               "none",
@@ -39,32 +39,32 @@
               "tree"
             ],
             "enumItemLabels": [
-                    "%functionList.config.indentation.none%",
-                    "%functionList.config.indentation.indent%",
-                    "%functionList.config.indentation.tree%"
+                    "%gotoSymbolsPlus.config.indentation.none%",
+                    "%gotoSymbolsPlus.config.indentation.indent%",
+                    "%gotoSymbolsPlus.config.indentation.tree%"
                   ],
-            "default": "none",
-            "markdownDescription": "%functionList.config.desc.indentation%"
+            "default": "indent",
+            "markdownDescription": "%gotoSymbolsPlus.config.desc.indentation%"
           },
-          "functionList.indentString": {
+          "gotoSymbolsPlus.indentString": {
             "type": "string",
             "default": "  ",
-            "markdownDescription": "%functionList.config.desc.indentString%"
+            "markdownDescription": "%gotoSymbolsPlus.config.desc.indentString%"
           }
         }
       },
       {
-        "title": "%functionList.config.title.misc%",
+        "title": "%gotoSymbolsPlus.config.title.misc%",
         "properties":{
-          "functionList.prefixString": {
+          "gotoSymbolsPlus.prefixString": {
             "type": "string",
             "default": "",
-             "markdownDescription": "%functionList.config.desc.prefixString%"
+             "markdownDescription": "%gotoSymbolsPlus.config.desc.prefixString%"
           },
-          "functionList.showSymbolKind": {
+          "gotoSymbolsPlus.showSymbolKind": {
             "type": "boolean",
             "default": false,
-             "markdownDescription": "%functionList.config.desc.showSymbolKind%"
+             "markdownDescription": "%gotoSymbolsPlus.config.desc.showSymbolKind%"
           }
         }
       }

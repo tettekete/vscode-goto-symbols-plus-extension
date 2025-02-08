@@ -1,11 +1,12 @@
 {
-	"functionList.config.desc.indentString": "This is the string used for indentation when `Use indent string` is selected in the `Indentation` setting.",
-	"functionList.config.desc.indentation": "Specifies the indentation method for nested function lists.\n\n- `None`: No indentation\n\n- `Use indent string`: Uses the string set in `Indent String` for indentation\n\n- `Tree view`: Expresses the tree structure with lines\n\nThe reason `Tree view` is a beta version is because there is a possibility of “misalignment” on Windows.",
-	"functionList.config.desc.prefixString": "Prefix string",
-	"functionList.config.desc.showSymbolKind": "Display the type of symbol label too.",
-	"functionList.config.indentation.indent": "Use indent string",
-	"functionList.config.indentation.none": "None",
-	"functionList.config.indentation.tree": "Tree view(beta)",
-	"functionList.config.title.indentation": "Indentation",
-	"functionList.config.title.misc": "Other settings"
+	"gotoSymbolsPlus.config.desc.indentString": "This is the string used for indentation when `Use indent string` is selected in the `Indentation` setting.",
+	"gotoSymbolsPlus.config.desc.indentation": "Specifies the indentation method for nested symbol lists.\n\n- `None`: No indentation\n\n- `Use indent string`: Uses the string set in `Indent String` for indentation\n\n- `Tree view`: Expresses the tree structure with lines",
+	"gotoSymbolsPlus.config.desc.prefixString": "Prefix string",
+	"gotoSymbolsPlus.config.desc.showSymbolKind": "Display the type of symbol label too.",
+	"gotoSymbolsPlus.config.indentation.indent": "Use indent string",
+	"gotoSymbolsPlus.config.indentation.none": "None",
+	"gotoSymbolsPlus.config.indentation.tree": "Tree view",
+	"gotoSymbolsPlus.config.title.indentation": "Indentation",
+	"gotoSymbolsPlus.config.title.misc": "Other settings",
+	"gotoSymbolsPlus.description": "Enhances VS Code's 'Go to Symbol in Editor…' with a curated, indented list of functions, methods, and structures (including JSON, YAML, etc.) for swift and clear navigation."
 }

@@ -1,11 +1,12 @@
 {
-	"functionList.config.desc.indentString": "`インデント`設定で `指定した文字列をインデントに使う` を選択した場合にインデントに使用される文字列です",
-	"functionList.config.desc.indentation": "ネストしたファンクションリストについてのインデント方法を指定します。\n\n- `無し`: インデントなし\n\n- `指定した文字列をインデントに使う`: `インデント文字` で設定された文字列をインデントに使用する\n\n- `ツリー表示`: 罫線でツリー構造を表現します\n\n`ツリー表示` がベータ版なのは Windows でずれる可能性があるためです。",
-	"functionList.config.desc.prefixString": "プリフィックス文字",
-	"functionList.config.desc.showSymbolKind": "シンボルの種類ラベルも表示する",
-	"functionList.config.indentation.indent": "指定した文字列をインデントに使う",
-	"functionList.config.indentation.none": "無し",
-	"functionList.config.indentation.tree": "ツリー表示(beta)",
-	"functionList.config.title.indentation": "インデント",
-	"functionList.config.title.misc": "その他設定"
+	"gotoSymbolsPlus.config.desc.indentString": "`インデント`設定で `指定した文字列をインデントに使う` を選択した場合にインデントに使用される文字列です",
+	"gotoSymbolsPlus.config.desc.indentation": "ネストしたシンボルについてのインデント方法を指定します。\n\n- `無し`: インデントなし\n\n- `指定した文字列をインデントに使う`: `インデント文字` で設定された文字列をインデントに使用する\n\n- `ツリー表示`: 罫線でツリー構造を表現します",
+	"gotoSymbolsPlus.config.desc.prefixString": "プリフィックス文字",
+	"gotoSymbolsPlus.config.desc.showSymbolKind": "シンボルの種類ラベルも表示する",
+	"gotoSymbolsPlus.config.indentation.indent": "指定した文字列をインデントに使う",
+	"gotoSymbolsPlus.config.indentation.none": "無し",
+	"gotoSymbolsPlus.config.indentation.tree": "ツリー表示",
+	"gotoSymbolsPlus.config.title.indentation": "インデント",
+	"gotoSymbolsPlus.config.title.misc": "その他設定",
+	"gotoSymbolsPlus.description": "関数やメソッドに加え JSON 等の構造をインデント付きのリストやツリーで表示する事ができ VS Code の「エディター内のシンボルへ移動...」より使いやすいナビゲーションを提供します。"
 }

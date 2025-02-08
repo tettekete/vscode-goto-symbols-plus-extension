@@ -11,7 +11,7 @@ export class VSCConfig
 	static indentation( fallback?: string ):string | undefined
 	{
 		return VSCConfig._stringConfig(
-			'functionList.indentation'
+			'gotoSymbolsPlus.indentation'
 			,fallback
 		);
 	}
@@ -23,7 +23,7 @@ export class VSCConfig
 	static indentString( fallback?: string ):string | undefined
 	{
 		return VSCConfig._stringConfig(
-			'functionList.indentString'
+			'gotoSymbolsPlus.indentString'
 			,fallback
 		);
 	}
@@ -34,7 +34,7 @@ export class VSCConfig
 	static prefixString( fallback?: string ):string | undefined
 	{
 		return VSCConfig._stringConfig(
-			'functionList.prefixString'
+			'gotoSymbolsPlus.prefixString'
 			,fallback
 		);
 	}
@@ -46,7 +46,7 @@ export class VSCConfig
 	static showSymbolKind( fallback?: boolean ):boolean | undefined
 	{
 		return VSCConfig._booleanConfig(
-			'functionList.showSymbolKind'
+			'gotoSymbolsPlus.showSymbolKind'
 			,fallback
 		);
 	}
