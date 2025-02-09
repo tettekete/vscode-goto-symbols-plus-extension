@@ -12,3 +12,8 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+_untrack/**
+docs/**
+!docs/images/goto-symbols-plus.png
+!docs/README.ja.md
+scripts/**
