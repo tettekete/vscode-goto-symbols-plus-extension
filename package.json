@@ -2,13 +2,22 @@
   "name": "goto-symbols-plus",
   "displayName": "Goto Symbols+",
   "description": "%gotoSymbolsPlus.description%",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
     "Other"
   ],
+  "publisher": "tettekete",
+  "author": "tettekete",
+  "license": "MIT",
+  "icon": "docs/images/goto-symbols-plus.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tettekete/vscode-goto-symbols-plus-extension"
+  },
+  "homepage": "https://tettekete.github.io/vscode-goto-symbols-plus-extension/",
   "activationEvents": [
     "onStartupFinished"
   ],
