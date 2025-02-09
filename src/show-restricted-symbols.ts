@@ -25,7 +25,6 @@ export async function showRestrictedSymbols()
 	const editor = vscode.window.activeTextEditor;
 	if( ! editor )
 	{
-		vscode.window.showErrorMessage('No active editor found.');
 		return;
 	}
 
