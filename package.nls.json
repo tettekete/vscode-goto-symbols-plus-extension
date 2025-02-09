@@ -1,13 +1,13 @@
 {
 	"gotoSymbolsPlus.config.desc.indentString": "This is the string used for indentation when `Use indent string` is selected in the `Indentation` setting.",
-	"gotoSymbolsPlus.config.desc.indentation": "Specifies the indentation method for nested symbol lists.\n\n- `None`: No indentation\n\n- `Use indent string`: Uses the string set in `Indent String` for indentation\n\n- `Tree view`: Expresses the tree structure with lines",
+	"gotoSymbolsPlus.config.desc.indentation": "Specifies the indentation method for nested symbol lists.\n\n- `None`: No indentation\n\n- `Use indent string`: Uses the string set in `Indent String` for indentation\n\n- `Tree view`: Expresses the tree structure with lines\n\nThe default is `Use indent string`.",
 	"gotoSymbolsPlus.config.desc.prefixString": "Prefix string",
-	"gotoSymbolsPlus.config.desc.showSymbolKind": "Display the type of symbol label too.",
+	"gotoSymbolsPlus.config.desc.showSymbolKind": "In function/method display mode, this option determines whether to show the symbol type returned by the symbol provider as a description.",
 	"gotoSymbolsPlus.config.indentation.indent": "Use indent string",
 	"gotoSymbolsPlus.config.indentation.none": "None",
 	"gotoSymbolsPlus.config.indentation.tree": "Tree view",
 	"gotoSymbolsPlus.config.makefile.showDependenciesAsLabel": "Display target dependency information as labels in the Makefile.\n\nWhen shown as labels, targets and their dependencies are displayed together, making them searchable through text input.\n\nIf this option is unchecked, dependencies are displayed as descriptions instead. This improves readability but excludes them from text-based filtering.",
 	"gotoSymbolsPlus.config.title.indentation": "Indentation",
 	"gotoSymbolsPlus.config.title.misc": "Other settings",
-	"gotoSymbolsPlus.description": "Enhances VS Code's 'Go to Symbol in Editor…' with a curated, indented list of functions, methods, and structures (including JSON, YAML, etc.) for swift and clear navigation."
+	"gotoSymbolsPlus.description": "Simplifies VS Code's 'Go to Symbol in Editor…' by displaying a curated, indented list of functions, methods, and structures (including JSON/YAML) for quick, clear navigation."
 }

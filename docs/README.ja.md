@@ -1,4 +1,6 @@
 
+<p align="center"><a href="https://tettekete.github.io/vscode-goto-symbols-plus-extension/">English</a> / 日本語</p>
+
 **目次:**
 
 - [概要](#概要)
@@ -10,21 +12,27 @@
 		- [`Goto Symbols+: list functions`](#goto-symbols-list-functions)
 		- [`Goto Symbols+: list structures`](#goto-symbols-list-structures)
 	- [ショートカットの設定方法](#ショートカットの設定方法)
-- [必要条件 - 対応する言語サポート機能拡張](#必要条件---対応する言語サポート機能拡張)
-	- [検証に使用した言語サポート機能拡張](#検証に使用した言語サポート機能拡張)
 - [コンフィグパラメータ](#コンフィグパラメータ)
 	- [`Indentation`](#indentation)
+		- [表示サンプル](#表示サンプル)
 	- [`Indent String`](#indent-string)
 	- [`Prefix String`](#prefix-string)
 	- [`Show Symbol Kind`](#show-symbol-kind)
 	- [`Makefile: Show Dependencies As Label`](#makefile-show-dependencies-as-label)
+- [必要条件 - 対応する言語サポート機能拡張](#必要条件---対応する言語サポート機能拡張)
+	- [検証に使用した言語サポート機能拡張](#検証に使用した言語サポート機能拡張)
 
 
 # 概要
 
-VSCode 標準の「Go to Symbol in Editor...」に代わり、関数やメソッドのリストを表示し、プレビューと移動を助ける機能拡張です。
+VS Codeの「エディター内のシンボルへ移動...」を簡素化し、整理されたインデント付きの関数、メソッド、構造（JSON/YAMLを含む）のリストを表示することで、プレビューと移動を助ける機能拡張です。
+
+![DEMO](https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/demo.gif)
 
 プログラミング言語以外にも HTML でのタグ構造表示、JSON や YAML での [gron](https://github.com/tomnomnom/gron) ライクな表示機能をサポートしています。
+
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg 2x" width="672">
 
 
 ## 動機
@@ -33,7 +41,7 @@ VSCode 標準の「Go to Symbol in Editor...」は多くの不要なシンボル
 
 似た様な機能を提供するメジャーな機能拡張 [Go To Method](https://marketplace.visualstudio.com/items?itemName=trixnz.go-to-method) もありますがプログラミング言語に限定されています。
 
-本機能拡張では SublimeText のように `cmd` + `r` でどの様なファイルにおいても有用なシンボルリストを「それなりに」表示することを目的としています。
+本機能拡張では SublimeText で `cmd` + `r` を使った時のようにどの様なファイルにおいても有用なシンボルリストを「それなりに」表示することを目的としています。
 
 
 ## Go To Method との主な違い
@@ -88,6 +96,8 @@ VSCode 標準の「Go to Symbol in Editor...」は多くの不要なシンボル
 
 こちらは VSCode 標準の「Go to Symbol in Editor...」と同じように全てのシンボルを列挙しますが、コンフィグの「インデント」設定を行っていれば、その構造を見やすく表示します。
 
+例えば JSON で gron ライクな表示をしたくない場合、こちらのコマンドを実行すればその構造をインデントで見ることが出来ます。
+
 コマンドID: `tettekete.list-structures`
 
 
@@ -98,6 +108,68 @@ VSCode 標準の「Go to Symbol in Editor...」は多くの不要なシンボル
    - `tettekete.list-functions` または `Goto Symbols+: list functions`
    - `tettekete.list-structures` または `Goto Symbols+: list structures`
 3. キーバインドを設定する
+
+
+# コンフィグパラメータ
+
+## `Indentation`
+
+ネストしたシンボルについてのインデント方法を指定します。
+
+- `無し`: インデントなし
+- `指定した文字列をインデントに使う`: `インデント文字` で設定された文字列をインデントに使用す
+- `ツリー表示`: 罫線でツリー構造を表現します
+
+デフォルトは `指定した文字列をインデントに使う` です。
+
+
+### 表示サンプル
+
+#### `無し`
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/none-indent.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/none-indent.jpg 2x" width="321">
+
+#### `指定した文字列をインデントに使う`(デフォルト半角スペース×2)
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/space-indent.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/space-indent.jpg 2x" width="321">
+
+#### `ツリー表示`
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/tree-indent.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/tree-indent.jpg 2x" width="321">
+
+
+
+## `Indent String`
+
+`インデント`設定で `指定した文字列をインデントに使う` を選択した場合にインデントに使用される文字列です
+
+デフォルトは半角スペース 2 文字です。
+
+
+## `Prefix String`
+
+シンボル名付与するプリフィックス文字を指定出来ます。
+
+デフォルトは空の文字列です。
+
+
+## `Show Symbol Kind`
+
+関数・メソッド表示モード時、シンボルプロバイダーが返したシンボルの種類を表す文字を description として表示するかどうかのオプションです。
+
+デフォルトは `false` です。
+
+
+## `Makefile: Show Dependencies As Label`
+
+ファイルタイプが `Makefile` の時、ターゲットの依存情報をラベルとして表示するかどうかのオプションです。
+
+ラベルとして表示した場合、ターゲットと一緒に依存ターゲットも表示します。ターゲットの視認性が悪くなる代わりに依存ターゲットもテキスト入力により絞り込み対象となります。
+
+ラベルとして表示しない場合、依存ターゲットの情報は description として表示されターゲット自体は見やすくなりますが、絞り込みの対象にならなくなります。
+
+デフォルトは `true` でターゲットの依存情報をラベルとして表示します。
+
 
 
 # 必要条件 - 対応する言語サポート機能拡張
@@ -176,52 +248,5 @@ Note: 提供される Range が正確では無く、あるセクションのレ�
 #### ShellScript
 
 - [“Bash IDE - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
-
-
-
-# コンフィグパラメータ
-
-## `Indentation`
-
-ネストしたシンボルについてのインデント方法を指定します。
-
-- `無し`: インデントなし
-- `指定した文字列をインデントに使う`: `インデント文字` で設定された文字列をインデントに使用す
-- `ツリー表示`: 罫線でツリー構造を表現します
-
-デフォルトは `指定した文字列をインデントに使う` です。
-
-
-
-## `Indent String`
-
-`インデント`設定で `指定した文字列をインデントに使う` を選択した場合にインデントに使用される文字列です
-
-デフォルトは半角スペース 2 文字です。
-
-
-## `Prefix String`
-
-シンボル名付与するプリフィックス文字を指定出来ます。
-
-デフォルトは空の文字列です。
-
-
-## `Show Symbol Kind`
-
-関数・メソッド表示モード時、シンボルプロバイダーが返したシンボルの種類を表す文字を description として表示するかどうかのオプションです。
-
-デフォルトは `false` です。
-
-
-## `Makefile: Show Dependencies As Label`
-
-ファイルタイプが `Makefile` の時、ターゲットの依存情報をラベルとして表示するかどうかのオプションです。
-
-ラベルとして表示した場合、ターゲットと一緒に依存ターゲットも表示します。ターゲットの視認性が悪くなる代わりに依存ターゲットもテキスト入力により絞り込み対象となります。
-
-ラベルとして表示しない場合、依存ターゲットの情報は description として表示されターゲット自体は見やすくなりますが、絞り込みの対象にならなくなります。
-
-デフォルトは `true` でターゲットの依存情報をラベルとして表示します。
 
 

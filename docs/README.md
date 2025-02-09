@@ -1,4 +1,6 @@
 
+<p align="center">English / <a href="https://tettekete.github.io/vscode-goto-symbols-plus-extension/README.ja.html">日本語</a></p>
+
 **Table of Contents:**
 
 - [Overview](#overview)
@@ -10,6 +12,13 @@
 		- [`Goto Symbols+: list functions`](#goto-symbols-list-functions)
 		- [`Goto Symbols+: list structures`](#goto-symbols-list-structures)
 	- [How to Set Shortcuts](#how-to-set-shortcuts)
+- [Description of Configuration Items](#description-of-configuration-items)
+	- [`Indentation`](#indentation)
+		- [Sample display](#sample-display)
+	- [`Indent String`](#indent-string)
+	- [`Prefix String`](#prefix-string)
+	- [`Show Symbol Kind`](#show-symbol-kind)
+	- [`Makefile: Show Dependencies As Label`](#makefile-show-dependencies-as-label)
 - [Requirements - Compatible Language Support Extensions](#requirements---compatible-language-support-extensions)
 	- [Language Support Extensions Used for Verification](#language-support-extensions-used-for-verification)
 
@@ -18,7 +27,11 @@
 
 This extension serves as an alternative to the standard VSCode `Go to Symbol in Editor...`, providing a function and method list display that aids preview and navigation.
 
+![DEMO](https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/demo.gif)
+
 In addition to programming languages, it supports tag structure display in HTML, as well as [gron](https://github.com/tomnomnom/gron)-like views for JSON and YAML.
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg 2x" width="672">
 
 
 ## Motivation
@@ -85,6 +98,8 @@ Command ID: `tettekete.list-functions`
 
 This command enumerates all symbols, similar to VSCode’s standard "Go to Symbol in Editor..." but with improved readability using the configured "Indentation" settings.
 
+For example, if you do not want a gron-like display for JSON, executing this command allows you to view its structure with indentation instead.
+
 Command ID: `tettekete.list-structures`
 
 
@@ -95,6 +110,68 @@ Command ID: `tettekete.list-structures`
    - `tettekete.list-functions` or `Goto Symbols+: list functions`
    - `tettekete.list-structures` or `Goto Symbols+: list structures`
 3. Set a keybinding.
+
+
+
+# Description of Configuration Items
+
+## `Indentation`
+
+Specifies the indentation method for nested symbol lists.
+
+- `None`: No indentation
+- `Use indent string`: Uses the string set in `Indent String` for indentation
+- `Tree view`: Expresses the tree structure with lines
+
+The default is `Use indent string`.
+
+
+### Sample display
+
+#### `None`
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/none-indent.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/none-indent.jpg 2x" width="321">
+
+#### `Use indent string`(The default is two spaces)
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/space-indent.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/space-indent.jpg 2x" width="321">
+
+#### `Tree view`
+
+<img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/tree-indent.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/tree-indent.jpg 2x" width="321">
+
+
+
+## `Indent String`
+
+This is the string used for indentation when `Use indent string` is selected in the `Indentation` setting.
+
+The default is two spaces.
+
+
+## `Prefix String`
+
+You can specify a prefix string to be added to symbol names.  
+
+The default is an empty string.
+
+
+## `Show Symbol Kind`
+
+In function/method display mode, this option determines whether to show the symbol type returned by the symbol provider as a description.
+
+The default is `false`.
+
+
+## `Makefile: Show Dependencies As Label`
+
+This option determines whether to display target dependencies as labels when the file type is `Makefile`.  
+
+If enabled, dependencies are shown alongside their targets. While this may reduce target visibility, it allows dependencies to be included in text-based filtering.  
+
+If disabled, dependencies are displayed as descriptions, making targets easier to read but excluding dependencies from filtering.  
+
+The default is `true`, meaning dependencies are displayed as labels.
 
 
 
