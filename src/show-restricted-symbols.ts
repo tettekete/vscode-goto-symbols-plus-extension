@@ -11,13 +11,17 @@ import
 import { functionsOrClassesList } from './lib/functions-or-classes-list';
 import { markdownHeadingsList } from './lib/markdown-headings-list';
 
-import type { ExQuickPickItem } from './types';
+import type {
+	ExQuickPickItem,
+	QuickPickModifier
+} from './types';
 import { HtmlStructureList } from './lib/html-structure-list';
 import { jsonStructureList } from './lib/json-structure-list';
 import { yamlStructureList } from './lib/yaml-structure-list';
 import { commonStructureList } from './lib/common-structure-list';
 import { makefileForceDescriptionExtractor } from './lib/makefile-force-description-extractor';
 import { dockerfileForceDescriptionExtractor } from './lib/dockerfile-force-description-extractor';
+
 
 
 export async function showRestrictedSymbols()
@@ -47,6 +51,7 @@ export async function showRestrictedSymbols()
 	}
 
 	let quickPickItems:ExQuickPickItem[] | Error;
+	let quickPickModifier: QuickPickModifier | undefined = undefined;
 	const defaultSet = new Set([
 		vscode.SymbolKind.Function,
 		vscode.SymbolKind.Class,
@@ -65,17 +70,21 @@ export async function showRestrictedSymbols()
 
 		case 'json':
 			quickPickItems = jsonStructureList( documentSymbols );
+			quickPickModifier = ( quickPick ) =>
+			{
+				quickPick.onDidTriggerItemButton( onCopyJqPathButtonPressed );
+			};
 			break;
 
 		case 'yaml':
 		case 'dockercompose':
 			quickPickItems = yamlStructureList( documentSymbols );
+			quickPickModifier = ( quickPick ) =>
+			{
+				quickPick.onDidTriggerItemButton( onCopyJqPathButtonPressed );
+			};
 			break;
-
-		// case 'restructuredtext':
-		// case 'latex':
-		// case 'org':
-		// 	break;
+		
 
 		case 'perl':
 			quickPickItems = functionsOrClassesList(
@@ -205,7 +214,7 @@ export async function showRestrictedSymbols()
 	}
 
 	
-	createAndShowQuickPick( quickPickItems );
+	createAndShowQuickPick({ quickPickItems ,quickPickModifier});
 }
 
 
@@ -228,3 +237,10 @@ function isSymbolsIncludesFunctionOrMethod( docSymbols: vscode.DocumentSymbol[] 
 	return !! symbol;
 }
 
+function onCopyJqPathButtonPressed( event:vscode.QuickPickItemButtonEvent<ExQuickPickItem> )
+{
+	vscode.env.clipboard.writeText( event.item.label ).then(()=>
+	{
+		vscode.window.setStatusBarMessage( 'The path has been copied.' , 8000 );
+	});
+}

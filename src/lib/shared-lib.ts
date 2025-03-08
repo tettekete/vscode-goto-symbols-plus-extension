@@ -2,7 +2,8 @@ import * as vscode from 'vscode';
 
 import type {
 	FlattenSymbolRec,
-	ExQuickPickItem
+	ExQuickPickItem,
+	QuickPickModifier
 } from '../types';
 
 import { VSCConfig } from './vsc-config';
@@ -211,7 +212,16 @@ export function showAsNoSymbols()
 }
 
 
-export function createAndShowQuickPick( quickPickItems:ExQuickPickItem[] | Error )
+export function createAndShowQuickPick( 
+	{
+		quickPickItems,
+		quickPickModifier
+	}:
+	{
+		quickPickItems:ExQuickPickItem[] | Error;
+		quickPickModifier?: QuickPickModifier
+	}
+)
 {
 	if( quickPickItems instanceof Error )
 	{
@@ -305,6 +315,11 @@ export function createAndShowQuickPick( quickPickItems:ExQuickPickItem[] | Error
 			}
 		}
 	);
+
+	if( quickPickModifier )
+	{
+		quickPickModifier( quickPick );
+	}
 	
 	// show QuickPick
 	quickPick.show();

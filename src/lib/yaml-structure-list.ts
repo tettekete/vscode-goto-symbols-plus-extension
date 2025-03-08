@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
-import type { ExQuickPickItem } from '../types';
+import type {
+	ExQuickPickItem,
+	FlattenSymbolRec
+} from '../types';
 import { getFlattenLikeGronSymbols } from './flatten-like-gron-symbols';
 import { VSCContext } from './vsc-context';
 import type { FlattenNamePathSymbolRec } from './flatten-like-gron-symbols';
@@ -38,10 +41,22 @@ export function yamlStructureList(
 		return symbolRec.namePath;
 	};
 
+	const quickPickItemModifier = ( symbolRec: FlattenSymbolRec ,qpItem:ExQuickPickItem ) =>
+		{
+			qpItem['buttons'] = [
+				{
+					iconPath: new vscode.ThemeIcon('copy'),
+					tooltip: 'Copy path to clip board'
+				}
+			];
+	
+			return qpItem;
+		};
 
 	return SymbolsToQuickPickItemList({
 			flattenSymbols,
-			nameModifier
+			nameModifier,
+			quickPickItemModifier
 		});
 }
 

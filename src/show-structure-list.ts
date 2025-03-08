@@ -39,5 +39,5 @@ export async function showStructureList()
 		return;
 	}
 
-	createAndShowQuickPick( quickPickItems );
+	createAndShowQuickPick({ quickPickItems });
 }
