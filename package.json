@@ -2,7 +2,7 @@
   "name": "goto-symbols-plus",
   "displayName": "Goto Symbols+",
   "description": "%gotoSymbolsPlus.description%",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.96.0"
   },
