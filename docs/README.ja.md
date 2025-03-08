@@ -191,6 +191,9 @@ VSCode のメニュー `Go` > `Go to Symbol in Editor...` を実行して、何�
 
 - [“C# - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 
+#### Dockerfile
+
+- [“Docker - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 
 #### Go
 
@@ -237,7 +240,7 @@ Note: 提供される Range が正確では無く、あるセクションのレ�
 
 #### Rust
 
--[“rust-analyzer - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) 
+- [“rust-analyzer - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) 
 
 
 #### YAML

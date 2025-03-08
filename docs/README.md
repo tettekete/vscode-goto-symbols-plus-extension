@@ -192,6 +192,11 @@ The following language support extensions were used during testing:
 #### C#
 - [“C# - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 
+
+#### Dockerfile
+
+- [“Docker - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+
 #### Go
 - [“Go - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=golang.Go)
 
