@@ -13,3 +13,5 @@ export interface FlattenSymbolRec
 	indent: string;
 	forcedDescription?: string;
 }
+
+export type QuickPickModifier = ( quickPick:vscode.QuickPick<ExQuickPickItem> ) => void;
