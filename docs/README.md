@@ -232,3 +232,7 @@ The following language support extensions were used during testing:
 #### ShellScript
 - [“Bash IDE - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
 
+
+# Bug Reports and Feature Requests
+
+If you encounter any bugs or have any suggestions, please let us know by [submitting an issue on our GitHub page](https://github.com/tettekete/vscode-goto-symbols-plus-extension/issues).
