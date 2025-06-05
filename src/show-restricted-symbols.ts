@@ -21,7 +21,7 @@ import { yamlStructureList } from './lib/yaml-structure-list';
 import { commonStructureList } from './lib/common-structure-list';
 import { makefileForceDescriptionExtractor } from './lib/makefile-force-description-extractor';
 import { dockerfileForceDescriptionExtractor } from './lib/dockerfile-force-description-extractor';
-
+import { getDefaultSymbolKinds } from './constants';
 
 
 export async function showRestrictedSymbols()
@@ -52,11 +52,6 @@ export async function showRestrictedSymbols()
 
 	let quickPickItems:ExQuickPickItem[] | Error;
 	let quickPickModifier: QuickPickModifier | undefined = undefined;
-	const defaultSet = new Set([
-		vscode.SymbolKind.Function,
-		vscode.SymbolKind.Class,
-		vscode.SymbolKind.Method
-	]);
 
 	switch( languageId )
 	{
@@ -124,7 +119,7 @@ export async function showRestrictedSymbols()
 		
 		case 'cpp':
 			{
-				const cppSymbols = new Set( defaultSet );
+				const cppSymbols = getDefaultSymbolKinds();
 				cppSymbols.add( vscode.SymbolKind.Namespace );
 				quickPickItems = functionsOrClassesList(
 					{
@@ -141,7 +136,7 @@ export async function showRestrictedSymbols()
 		
 		case 'typescript':
 			{
-				const tsSymbols = new Set( defaultSet );
+				const tsSymbols = getDefaultSymbolKinds();
 				tsSymbols.add( vscode.SymbolKind.Module );	// namespace kind is Module.
 				quickPickItems = functionsOrClassesList(
 					{
@@ -158,7 +153,7 @@ export async function showRestrictedSymbols()
 
 		case 'ruby':
 			{
-				const rbSymbols = new Set( defaultSet );
+				const rbSymbols = getDefaultSymbolKinds();
 				rbSymbols.add( vscode.SymbolKind.Module );	// module kind is Module.
 				quickPickItems = functionsOrClassesList(
 					{
@@ -175,7 +170,7 @@ export async function showRestrictedSymbols()
 
 		case 'rust':
 			{
-				const rustSymbols = new Set( defaultSet );
+				const rustSymbols = getDefaultSymbolKinds();
 				rustSymbols.add( vscode.SymbolKind.Module );	// mod kind is Module.
 				quickPickItems = functionsOrClassesList(
 					{
