@@ -21,6 +21,7 @@
 	- [`Makefile: Show Dependencies As Label`](#makefile-show-dependencies-as-label)
 - [必要条件 - 対応する言語サポート機能拡張](#必要条件---対応する言語サポート機能拡張)
 	- [検証に使用した言語サポート機能拡張](#検証に使用した言語サポート機能拡張)
+- [バグ報告と要望について](#バグ報告と要望について)
 
 
 # 概要
@@ -253,3 +254,6 @@ Note: 提供される Range が正確では無く、あるセクションのレ�
 - [“Bash IDE - Visual Studio Marketplace”](https://marketplace.visualstudio.com/items?itemName=mads-hartmann.bash-ide-vscode)
 
 
+# バグ報告と要望について
+
+この拡張機能に関するバグの報告や要望がある場合は、GitHub の [Issue ページ](https://github.com/tettekete/vscode-goto-symbols-plus-extension/issues)を通じてご連絡ください。

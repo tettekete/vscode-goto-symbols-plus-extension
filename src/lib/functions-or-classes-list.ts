@@ -10,6 +10,7 @@ import {
 	SymbolsToQuickPickItemList
 } from './shared-lib';
 
+import { getDefaultSymbolKinds } from '../constants';
 
 export function functionsOrClassesList(
 	{
@@ -26,9 +27,8 @@ export function functionsOrClassesList(
 {
 	let _passFilter = (symbol:vscode.DocumentSymbol) =>
 	{
-		return	symbol.kind === vscode.SymbolKind.Function ||
-				symbol.kind === vscode.SymbolKind.Class ||
-				symbol.kind === vscode.SymbolKind.Method;
+		const defaultSymbolKinds = getDefaultSymbolKinds();
+		return defaultSymbolKinds.has( symbol.kind );
 	};
 
 	if( passFilter )

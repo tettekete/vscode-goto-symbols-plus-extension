@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.2.1] - 2025-06-05
+
+### Fixed
+
+- Fixed an issue where constructors were not listed in JS/TS, PHP, and Java when executing the `list functions` command.
+
+
 ## [0.2.0] - 2025-03-08
 
 ### Added
