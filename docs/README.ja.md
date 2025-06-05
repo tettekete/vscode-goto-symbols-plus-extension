@@ -35,6 +35,8 @@ VS Codeの「エディター内のシンボルへ移動...」を簡素化し、�
 
 <img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg 2x" width="672">
 
+バージョン 0.2.0 でこのパスをクリップボードにコピーする機能も追加されています。これにより `jq` や `yq` コマンドでそれらのパスを使用することも可能になりました。
+
 
 ## 動機
 

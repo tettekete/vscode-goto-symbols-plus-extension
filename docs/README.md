@@ -21,6 +21,7 @@
 	- [`Makefile: Show Dependencies As Label`](#makefile-show-dependencies-as-label)
 - [Requirements - Compatible Language Support Extensions](#requirements---compatible-language-support-extensions)
 	- [Language Support Extensions Used for Verification](#language-support-extensions-used-for-verification)
+- [Bug Reports and Feature Requests](#bug-reports-and-feature-requests)
 
 
 # Overview
@@ -32,6 +33,8 @@ This extension serves as an alternative to the standard VSCode `Go to Symbol in 
 In addition to programming languages, it supports tag structure display in HTML, as well as [gron](https://github.com/tomnomnom/gron)-like views for JSON and YAML.
 
 <img src="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg" srcset="https://tettekete.github.io/vscode-goto-symbols-plus-extension/images/gron-like-json.jpg 2x" width="672">
+
+Since v0.2.0, you can also copy the path to the clipboard, making it easy to use with commands like `jq` or `yq`.
 
 
 ## Motivation

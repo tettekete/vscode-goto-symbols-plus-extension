@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.2.2] - 2025-06-05
+
+### Docs
+
+- Update README TOC and make minor content additions
+
+
 ## [0.2.1] - 2025-06-05
 
 ### Fixed
