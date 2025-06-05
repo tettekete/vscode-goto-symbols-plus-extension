@@ -7,9 +7,14 @@ type PathInfo =
 	light: string;
 }
 
+type CodeIcon =
+{
+	codeIcon: vscode.ThemeIcon;
+}
+
 interface IconMap
 {
-	[key: string]: PathInfo;
+	[key: string]: PathInfo | CodeIcon;
 }
 
 const languageIconMap:IconMap =
@@ -47,6 +52,11 @@ kindIconMap[vscode.SymbolKind.Class] =
 {
 	dark: 'vscode-icons/dark/symbol-class.svg',
 	light: 'vscode-icons/light/symbol-class.svg',
+};
+
+kindIconMap[vscode.SymbolKind.Constructor] =
+{
+	codeIcon: new vscode.ThemeIcon( 'tools' )
 };
 
 kindIconMap[vscode.SymbolKind.Function] =
@@ -125,6 +135,11 @@ function buildIconPath
 	if( rec === undefined )
 	{
 		return buildUriUnderMedia( fallback );
+	}
+
+	if( 'codeIcon' in rec )
+	{
+		return rec.codeIcon as vscode.ThemeIcon;
 	}
 
 	const darkIcon	= rec.dark;
